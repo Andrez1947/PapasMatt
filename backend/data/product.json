@@ -1,0 +1,32 @@
+[
+    {
+        "nombre" : "Papas Sencillas",
+        "precio" : "$5.000",
+        "descripcion" : "Papas a la francesa, salchicha premium, queso",
+        "imagen" : [{
+            "public_id" : "products/tffghfdhghjgh",
+            "url" : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mycolombianrecipes.com%2Fes%2Fsalchipapas%2F&psig=AOvVaw3honZpI5vMEQCQqpd2yjyW&ust=1674495566769000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCMDLsZ7c2_wCFQAAAAAdAAAAABAE"
+        }],
+        "categoria" : "Papas a la Francesa"
+    },
+    {
+        "nombre" : "Papas Sencillas",
+        "precio" : "$5000",
+        "descripcion" : "Papas a la francesa, salchicha premium, queso",
+        "imagen" : [{
+            "public_id" : "products/tffghfdhghjgh",
+            "url" : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mycolombianrecipes.com%2Fes%2Fsalchipapas%2F&psig=AOvVaw3honZpI5vMEQCQqpd2yjyW&ust=1674495566769000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCMDLsZ7c2_wCFQAAAAAdAAAAABAE"
+        }],
+        "categoria" : "Papas a la Francesa"
+    },
+    {
+        "nombre" : "Papas Sencillas",
+        "precio" : "$5000",
+        "descripcion" : "Papas a la francesa, salchicha premium, queso",
+        "imagen" : [{
+            "public_id" : "products/tffghfdhghjgh",
+            "url" : "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.mycolombianrecipes.com%2Fes%2Fsalchipapas%2F&psig=AOvVaw3honZpI5vMEQCQqpd2yjyW&ust=1674495566769000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCMDLsZ7c2_wCFQAAAAAdAAAAABAE"
+        }],
+        "categoria" : "Papas a la Francesa"
+    }
+]
