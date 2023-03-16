@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
 
 const Register = ({ history }) => {
+
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -12,9 +12,7 @@ const Register = ({ history }) => {
   });
 
   const { name, email, password } = user;
-
-  const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState("../images/avatar.png");
+  
 
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -42,27 +40,15 @@ const Register = ({ history }) => {
     const formData = new FormData();
     formData.set("name", name);
     formData.set("email", email);
-    formData.set("password", password);
-    formData.set("avatar", avatar);
+    formData.set("password", password);    
 
     dispatch(register(formData));
   };
 
   const onChange = e => {
-    if(e.target.name === 'avatar') {
-
-      const reader = new FileReader();
-
-      reader.onload = () => {
-
-      }
-
-      reader.readAsDataURL(e.target.files[0])
-
-    } else {
-      
-    }
-  }
+    
+      setUser({...user, [e.target.name]: e.target.value})      
+    }  
 
   return (
     <Fragment>
@@ -103,34 +89,7 @@ const Register = ({ history }) => {
               value={password}
               onChange={onChange}
               placeholder="Elige una contraseña"
-            />
-            <div className="form-group">
-              <label for="avatar_upload">Avatar</label>
-              <div className="d-flex align-items-center">
-                <div>
-                  <figure className="avatar mr-3 item-rtl">
-                    <img 
-                    src={avatarPreview} 
-                    className="rounded-circle" 
-                    alt="Avatar Preview"                    
-                    />
-                  </figure>
-                </div>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    name="avatar"
-                    className="custom-file-input"
-                    id="customFile"
-                    accept="images/*"
-                    onChange={onChange}
-                  />
-                  <label className="custom-file-label" for="customFile">
-                    Choose Avatar
-                  </label>
-                </div>
-              </div>
-            </div>
+            />            
             <button
               id="register_button"
               type="submit"

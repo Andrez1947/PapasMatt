@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookF, faGoogle } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope, faLock } from "@fortawesome/free-solid-svg-icons";
+// eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
 import Loader from "../Loader";
 
@@ -140,7 +141,7 @@ const Login = ({ history }) => {
                       <div className="flex justify-center items-center">
                         <label className="text-sm text-gray-600">Aún no registrado?</label>
                         <a
-                          href="/"
+                          href="/register"
                           className=" ml-2 text-blue-500 transition duration-500 ease-in-out  transform hover:-translate-x hover:scale-105"
                         >
                           Regístrese

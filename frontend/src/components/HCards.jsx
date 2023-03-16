@@ -39,12 +39,12 @@ const HCards = () => {
         <Loader />
       ) : (
         <Fragment>
-          <div className="overflow-x-scroll whitespace-nowrap">
+          <div className="overflow-x-scroll whitespace-nowrap items-center">
             <ul className="cursor-pointer">
               {categories.map((categoria) => (
                 <li
                   key={categoria}
-                  className="inline-block px-4 py-2 text-gray-600 hover:text-black font-medium"
+                  className="inline-block px-4 py-2 text-gray-600 hover:text-black font-medium items-center"
                   onClick={() => setCategoria(categoria)}
                 >
                   {categoria}

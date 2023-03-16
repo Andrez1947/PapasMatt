@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
-import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login} from "./components";
+import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register} from "./components";
 import { AnimatePresence } from "framer-motion";
 
 const App = () => {
@@ -17,6 +17,7 @@ const App = () => {
             <Route path="/menu" element={<MenuContainer/>} />
             <Route path="/product/:id" element={<Modal/>} />
             <Route path="/login" element={<Login/>} />
+            <Route path="/register" element={<Register/>} />
           </Routes>        
         </main>
         <Footer />
