@@ -15,8 +15,17 @@ const sendEmail = require('../utils/sendEmail');
 
 const crypto = require('crypto');
 
+const cloudinary = require('cloudinary');
+
 //register a user => api/v1/register
 exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+
+  const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    folder: 'avatars',
+    width: 150,
+    crop: 'scale'
+  })
+
   const { name, email, password } = req.body;
 
   const user = await User.create({
@@ -24,8 +33,8 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     email,
     password,
     avatar: {
-      public_id: "dfgdgfhfggf",
-      url: "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.ambito.com%2Finformacion-general%2Flos-simpsons%2Fhoy-cumple-anos-homero-simpson-enterate-cuantos-n5437930&psig=AOvVaw04WQSmWypDCSNuyvTsrMyJ&ust=1674917496616000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCNjKuYWA6PwCFQAAAAAdAAAAABAE",
+      public_id: result.public_id,
+      url: result.secure_url,
     },
   });
 
