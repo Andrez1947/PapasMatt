@@ -7,7 +7,6 @@ import Avatar from "../images/avatar.png";
 import { Link } from "react-router-dom";
 
 const Header = () => {
-  
   return (
     <header className="fixed z-50 w-screen p-3 px-4 md:p-6 md:px-16 bg-primary h-18">
       {/* desktop & tablet */}
@@ -44,16 +43,15 @@ const Header = () => {
             <p className="text-xs text-white font-semibold">2</p>
           </div>
           <div className="relative">
-            <Link to='/login'>
-            <motion.img
-              whileTap={{ scale: 0.6 }}
-              src={Avatar}
-              className="w-12 min-w-[40px] h-12 min-h-[40px] drop-shadow-xl cursor-pointer rounded-r-full"
-              alt="userprofile"
-              onClick="#"
-            />
+            <Link to="/login">
+              <motion.img
+                whileTap={{ scale: 0.6 }}
+                src={Avatar}
+                className="w-12 min-w-[40px] h-12 min-h-[40px] drop-shadow-xl cursor-pointer rounded-r-full"
+                alt="userprofile"
+                onClick="#"
+              />
             </Link>
-            
           </div>
         </div>
       </div>
@@ -68,17 +66,18 @@ const Header = () => {
           </div>
         </div>
         <Link to={"/"} className="flex items-center gap-2">
-          <img src={Logo} className="w-16 object-cover" alt="logo" />          
+          <img src={Logo} className="w-16 object-cover" alt="logo" />
         </Link>
         <div className="relative">
-          <motion.img
-            whileTap={{ scale: 0.6 }}
-            src={Avatar}
-            className="w-12 min-w-[40px] h-12 min-h-[40px] drop-shadow-xl cursor-pointer rounded-r-full"
-            alt="userprofile"
-            onClick="#"
-          />
-          
+          <Link to="/login">
+            <motion.img
+              whileTap={{ scale: 0.6 }}
+              src={Avatar}
+              className="w-12 min-w-[40px] h-12 min-h-[40px] drop-shadow-xl cursor-pointer rounded-r-full"
+              alt="userprofile"
+              onClick="#"
+            />
+          </Link>
         </div>
       </div>
     </header>
