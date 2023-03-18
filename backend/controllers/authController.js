@@ -69,7 +69,8 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
   }
 
   //It's by sendjwt token by Cookie
-  sendToken(user, 200, res);  
+  sendToken(user, 200, res);
+  console.log(user);  
 });
 
 //Forgot Password => /api/v1/password/forgot

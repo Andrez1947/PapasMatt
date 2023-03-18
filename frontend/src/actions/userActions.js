@@ -12,16 +12,16 @@ import {
 //Login
 export const login = (email, password) => async (dispatch) => {
   try {
-    dispatch({ type: LOGIN_REQUEST });
+    dispatch({ type: LOGIN_REQUEST })
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-      },
-    };
+        'Content-Type': 'application/json',
+      }
+    }
 
     const { data } = await axios.post(
-      "api/v1/login",
+      '/api/v1/login',
       { email, password },
       config
     );
@@ -49,7 +49,7 @@ export const register = (userData) => async (dispatch) => {
       },
     };
 
-    const { data } = await axios.post("api/v1/register", userData, config);
+    const { data } = await axios.post("/api/v1/register", userData, config);
 
     dispatch({
       type: REGISTER_USER_SUCCESS,

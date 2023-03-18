@@ -15,7 +15,7 @@ export const authReducer = (state = { user: {} }, action) => {
       return {
         loading: true,
         isAuthenticated: false,
-      };
+      }
       case LOGIN_SUCCCESS:
       case REGISTER_USER_SUCCESS:  
         return {
@@ -23,7 +23,7 @@ export const authReducer = (state = { user: {} }, action) => {
           loading: false,
           isAuthenticated: true,
           user : action.payload
-        }; 
+        }
         case LOGIN_FAIL:
         case REGISTER_USER_FAIL:
             return {
@@ -32,13 +32,12 @@ export const authReducer = (state = { user: {} }, action) => {
               isAuthenticated: false,
               user : null,
               error: action.payload
-            };    
+            } 
         case CLEAR_ERRORS:
             return {
                 ...state,
                 error:null
-            }    
-
+            }
     default:
       return state;
   }
