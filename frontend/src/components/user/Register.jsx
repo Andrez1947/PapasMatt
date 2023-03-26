@@ -60,7 +60,7 @@ const Register = () => {
           setAvatarPreview(reader.result);
           setAvatar(reader.result);
         }
-      };
+      }
 
       reader.readAsDataURL(e.target.files[0]);
     } else {
