@@ -1,5 +1,5 @@
 import React from "react";
-import { MdShoppingBasket, MdAdd, MdLogout } from "react-icons/md";
+import { MdShoppingBasket} from "react-icons/md";
 import { motion } from "framer-motion";
 
 import Logo from "../images/log.png";

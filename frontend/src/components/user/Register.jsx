@@ -3,21 +3,21 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { register, clearErrors } from "../../actions/userActions";
-import Avatar from "../../images/avatar.png";
+//import avatarImage from "../../images/avatar.png";
 
 const Register = () => {
   const [user, setUser] = useState({
-    name: "",
-    email: "",
-    password: "",
+    name: '',
+    email: '',
+    password: '',
   });
 
   const navigate = useNavigate();
 
   const { name, email, password } = user;
 
-  const [avatar, setAvatar] = useState("");
-  const [avatarPreview, setAvatarPreview] = useState({ Avatar });
+  //const [avatar, setAvatar] = useState("");
+  //const [avatarPreview, setAvatarPreview] = useState({avatarImage});
 
   const alert = useAlert();
   const dispatch = useDispatch();
@@ -45,27 +45,13 @@ const Register = () => {
     const formData = new FormData();
     formData.set("name", name);
     formData.set("email", email);
-    formData.set("password", password);
-    formData.set("avatar", avatar);
+    formData.set("password", password);    
 
     dispatch(register(formData));
   };
 
-  const onChange = (e) => {
-    if (e.target.name === "avatar") {
-      const reader = new FileReader();
-
-      reader.onLoad = () => {
-        if (reader.readyState === 2) {
-          setAvatarPreview(reader.result);
-          setAvatar(reader.result);
-        }
-      }
-
-      reader.readAsDataURL(e.target.files[0]);
-    } else {
-      setUser({ ...user, [e.target.name]: e.target.value });
-    }
+  const onChange = (e) => {    
+      setUser({ ...user, [e.target.name]: e.target.value });    
   };
 
   return (
@@ -107,34 +93,7 @@ const Register = () => {
               value={password}
               onChange={onChange}
               placeholder="Elige una contraseña"
-            />
-            <div className="form-group">
-              <label htmlFor="avatar_upload">Avatar</label>
-              <div className="d-flex align-items-center">
-                <div>
-                  <figure className="avatar mr-3 item-rtl">
-                    <img
-                      src={avatarPreview}
-                      className="rounded-circle"
-                      alt="Avatar Preview"
-                    />
-                  </figure>
-                </div>
-                <div className="custom-file">
-                  <input
-                    type="file"
-                    name="avatar"
-                    className="custom-file-input"
-                    id="customFile"
-                    accept="images/*"
-                    onChange={onChange}
-                  />
-                  <label className="custom-file-label" htmlFor="customFile">
-                    Choose Avatar
-                  </label>
-                </div>
-              </div>
-            </div>
+            />            
             <button
               id="register_button"
               type="submit"
