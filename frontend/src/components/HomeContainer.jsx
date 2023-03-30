@@ -1,4 +1,4 @@
-import React, { useState, useEffect }  from "react";
+import React, { useState, useEffect } from "react";
 import Delivery from "../images/delivery.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../actions/productActions";
@@ -67,28 +67,32 @@ const HomeContainer = () => {
       </div>
 
       {/* Usar grid-cols-2 si es pantalla grande o grid-cols-4 si no lo es */}
-      <div className={`py-2 flex-1 flex items-center relative ${isWideScreen ? "grid-cols-2" : "grid-cols-4"}`}>
+      <div
+        className={`py-2 flex-1 flex items-center relative ${
+          isWideScreen ? "grid-cols-2" : "grid-cols-4"
+        }`}
+      >
         <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full ">
-        {displayedProducts &&
-displayedProducts.map((product) => (
-<div
-             key={product._id}
-             className=" overflow-hidden rounded-lg shadow-lg cursor-pointer transition-all hover:scale-125"
-           >
-<img
-               src={product.imagen[0].url}
-               className="object-cover w-full h-48"
-               alt="I1"
-             />
-<div className="p-4 flex flex-col items-center">
-  <h3 className="text-lg font-bold mb-2">{product.nombre}</h3>  
-</div>
-</div>
-))}
-</div>
-</div>
-</section>
-);
+          {displayedProducts &&
+            displayedProducts.map((product) => (
+              <div
+                key={product._id}
+                className=" overflow-hidden rounded-lg shadow-lg cursor-pointer transition-all hover:scale-125"
+              >
+                <img
+                  src={product.imagen[0].url}
+                  className="object-cover w-full h-48"
+                  alt="I1"
+                />
+                <div className="p-4 flex flex-col items-center">
+                  <h3 className="text-lg font-bold mb-2">{product.nombre}</h3>
+                </div>
+              </div>
+            ))}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default HomeContainer;
