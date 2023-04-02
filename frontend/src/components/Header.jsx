@@ -48,8 +48,7 @@ const Header = () => {
                 whileTap={{ scale: 0.6 }}
                 src={Avatar}
                 className="w-12 min-w-[40px] h-12 min-h-[40px] drop-shadow-xl cursor-pointer rounded-r-full"
-                alt="userprofile"
-                onClick="#"
+                alt="userprofile"                
               />
             </Link>
           </div>

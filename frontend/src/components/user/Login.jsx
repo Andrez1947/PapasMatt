@@ -25,6 +25,7 @@ const Login = () => {
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/menu");
+      alert.info("Ingreso correcto")
     }
 
     if (error) {
