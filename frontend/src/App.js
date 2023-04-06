@@ -1,9 +1,17 @@
-import React from "react";
+import {React, useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
+
 import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register} from "./components";
 import { AnimatePresence } from "framer-motion";
 
+import {loadUser} from "./actions/userActions";
+import store from "./store";
+
 const App = () => {
+  
+  useEffect(() => {
+    store.dispatch(loadUser())
+  }, []);
   
   return (
     <Router>
