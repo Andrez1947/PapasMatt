@@ -55,29 +55,42 @@ const Header = () => {
               <p className="text-xs text-white font-semibold">2</p>
             </div>
           </Link>
-          <div className="relative">
+          <div className="flex z-50 mt-0 ml-0 mr-0">
             {user ? (
               <div className="ml-4 dropdown d-inline">
-                <Link to="!#">
+                
                   <button
                     type="button"
                     className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-8 py-2.5 mr-2 mb-2 mt-5 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                    onClick={() => SetIsMenu(!isMenu)}
                   >
                     {user && user.name}
                   </button>
-                </Link>
-                <div className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col left top-16 right-0 px-2 py-2">
-                  {user && user.rol === "admin" && (
-                    <Link to="/product/new">
+              
+                {isMenu && (
+                  <div className="w-40 bg-gray-50 shadow-xl rounded-lg flex flex-col left top-16 right-0 px-2 py-2">
+                    {user && user.rol === "admin" && (
+                      <Link to="/product/new">
+                        <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">
+                          New Item <MdAdd />
+                        </p>
+                      </Link>
+                    )}
+                    <Link to="/me">
                       <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">
-                        New Item <MdAdd />
+                        Mi Perfil
                       </p>
                     </Link>
-                  )}
-                  <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base ">
-                    Salir <MdLogout />
-                  </p>
-                </div>
+                    <Link to="/orders/me">
+                      <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base">
+                        Mis Pedidos
+                      </p>
+                    </Link>
+                    <p className="px-4 py-2 flex items-center gap-3 cursor-pointer hover:bg-slate-100 transition-all duration-100 ease-in-out text-textColor text-base ">
+                      Salir <MdLogout />
+                    </p>
+                  </div>
+                )}
               </div>
             ) : (
               !loading && (
