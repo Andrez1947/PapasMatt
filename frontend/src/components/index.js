@@ -14,3 +14,4 @@ export {default as Modal} from "./Modal";
 export {default as Categories} from "./Categories";
 export {default as Login} from "./user/Login";
 export {default as Register} from "./user/Register";
+export {default as Profile} from "./user/Profile";

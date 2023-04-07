@@ -1,7 +1,7 @@
 import {React, useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
-import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register} from "./components";
+import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register, Profile} from "./components";
 import { AnimatePresence } from "framer-motion";
 
 import {loadUser} from "./actions/userActions";
@@ -26,6 +26,7 @@ const App = () => {
             <Route path="/product/:id" element={<Modal/>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/register" element={<Register/>} />
+            <Route path="/me" element={<Profile/>} />
           </Routes>        
         </main>
         <Footer />
