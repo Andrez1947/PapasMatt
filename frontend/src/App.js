@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register, Profile} from "./components";
 import { AnimatePresence } from "framer-motion";
 
+
+
 import {loadUser} from "./actions/userActions";
 import store from "./store";
 
