@@ -13,24 +13,26 @@ import {
   UPDATE_PROFILE_REQUEST,
   UPDATE_PROFILE_SUCCESS,
   UPDATE_PROFILE_FAIL,
-  UPDATE_PROFILE_RESET,
+  UPDATE_PASSWORD_REQUEST,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_FAIL,
   LOGOUT_FAIL,
-  LOGOUT_SUCCESS
+  LOGOUT_SUCCESS,
 } from "../constants/userConstants";
 
 //Login
 export const login = (email, password) => async (dispatch) => {
   try {
-    dispatch({ type: LOGIN_REQUEST })
+    dispatch({ type: LOGIN_REQUEST });
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
-      }
-    }
+        "Content-Type": "application/json",
+      },
+    };
 
     const { data } = await axios.post(
-      '/api/v1/login',
+      "/api/v1/login",
       { email, password },
       config
     );
@@ -116,6 +118,31 @@ export const updateProfile = (userData) => async (dispatch) => {
   }
 };
 
+// Update Profile
+export const updatePassword = (passwords) => async (dispatch) => {
+  try {
+    dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.put("/api/v1/password/update", passwords, config);
+
+    dispatch({
+      type: UPDATE_PASSWORD_SUCCESS,
+      payload: data.success,
+    });
+  } catch (error) {
+    dispatch({
+      type: UPDATE_PASSWORD_FAIL,
+      payload: error.response.data.message,
+    });
+  }
+};
+
 // Logout user
 export const logout = () => async (dispatch) => {
   try {
@@ -124,7 +151,7 @@ export const logout = () => async (dispatch) => {
     await axios.get("/api/v1/logout");
 
     dispatch({
-      type: LOGOUT_SUCCESS      
+      type: LOGOUT_SUCCESS,
     });
   } catch (error) {
     dispatch({

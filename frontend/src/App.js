@@ -1,7 +1,7 @@
 import {React, useEffect} from "react";
 import { BrowserRouter as Router, Route, Routes} from "react-router-dom";
 
-import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register, Profile, UpdateProfile} from "./components";
+import { Header, Footer, MainContainer, CreateContainer, MenuContainer, Modal, Login, Register, Profile, UpdateProfile, UpdatePassword} from "./components";
 import { AnimatePresence } from "framer-motion";
 
 
@@ -30,6 +30,7 @@ const App = () => {
             <Route path="/register" element={<Register/>} />
             <Route path="/me" element={<Profile/>} />
             <Route path="/me/update" element={<UpdateProfile/>} />
+            <Route path="/password/update" element={<UpdatePassword/>} />
           </Routes>        
         </main>
         <Footer />

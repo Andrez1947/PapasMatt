@@ -51,10 +51,7 @@ const HomeContainer = () => {
           </span>
         </p>
         <p className="text-base text-textColor text-justify md:text-left md:w-[80%]">
-          A nuestra cocina la mueve el amor por entregar platos llenos de sabor
-          y respeto para cada uno de ustedes. Nacimos de imaginar algo mejor.
-          Nuestras recetas y salsas son la causa de nuestro éxito. Trabajamos,
-          vivímos, soñamos y cocinamos con amor.
+        En nuestro restaurante, cada plato está hecho con amor. Nuestros ingredientes frescos y recetas caseras se combinan para ofrecerte una experiencia gastronómica excepcional, llena de sabor y autenticidad. 
         </p>
         <Link to="/menu">
           <button
