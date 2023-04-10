@@ -33,14 +33,7 @@ const Footer = () => {
             justifyContent: "center",
           }}
         >
-          {" "}
-          {/* Ajustando la clase 'span' */}
-          <img
-            src={rights}
-            alt="AV.png"
-            style={{ maxWidth: "100%", maxHeight: "100%" }}
-          />{" "}
-          {/* Ajustando la imagen */}
+        <h2>Todos los derechos reservados </h2>                 
         </span>
         <SocialIcons Icons={Icons} />
       </div>
