@@ -14,6 +14,7 @@ import {
   UpdateProfile,
   UpdatePassword,
   ForgotPassword,
+  NewPassword
 } from "./components";
 import { AnimatePresence } from "framer-motion";
 
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="/me/update" element={<UpdateProfile />} />
               <Route path="/password/update" element={<UpdatePassword />} />
               <Route path="/password/forgot" element={<ForgotPassword />} />
+              <Route path="/password/reset/:token" element={<NewPassword />} />
             </Routes>
           </main>
           <Footer />
