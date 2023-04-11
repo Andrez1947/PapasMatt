@@ -12,7 +12,7 @@ const NewPassword = ( {match} ) => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
-  const { error, success } = useSelector((state) => state.forgotPassword);
+  const { error, success } = useSelector(state => state.forgotPassword);
 
   useEffect(() => {
     if (error) {
@@ -20,7 +20,7 @@ const NewPassword = ( {match} ) => {
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success('Conraseña actualizada correctamente');
+      alert.success('Contraseña actualizada correctamente');
       Navigate('/login');
     }
   }, [dispatch, alert, error, success, Navigate]);
