@@ -1,4 +1,4 @@
-import Montanera from "../images/montanera.png";
+import Montanera from "../images/carousel_3.jpg";
 import Tocipapas from "../images/tocipapas.png";
 import L2 from '../images/L2.jpg';
 

@@ -4,7 +4,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword, clearErrors } from "../../actions/userActions";
 
-const NewPassword = ( {match} ) => {
+const NewPassword = ({ match }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -12,7 +12,7 @@ const NewPassword = ( {match} ) => {
   const dispatch = useDispatch();
   const Navigate = useNavigate();
 
-  const { error, success } = useSelector(state => state.forgotPassword);
+  const { error, success } = useSelector((state) => state.forgotPassword);
 
   useEffect(() => {
     if (error) {
@@ -20,8 +20,8 @@ const NewPassword = ( {match} ) => {
       dispatch(clearErrors());
     }
     if (success) {
-      alert.success('Contraseña actualizada correctamente');
-      Navigate('/login');
+      alert.success("Contraseña actualizada correctamente");
+      Navigate("/login");
     }
   }, [dispatch, alert, error, success, Navigate]);
 
@@ -52,7 +52,7 @@ const NewPassword = ( {match} ) => {
                   className="block text-lg font-medium text-gray-900 mb-2"
                 >
                   Escriba su Contraseña
-                </label>                
+                </label>
                 <input
                   type="password"
                   id="password_field"
@@ -68,7 +68,7 @@ const NewPassword = ( {match} ) => {
                   className="block text-lg font-medium text-gray-900 mb-2"
                 >
                   Confirme su Contraseña
-                </label>                
+                </label>
                 <input
                   type="password"
                   id="confirm_password_field"
@@ -80,9 +80,9 @@ const NewPassword = ( {match} ) => {
               </div>
               <div className="flex justify-end">
                 <button
-                id="new_password_button"
+                  id="new_password_button"
                   type="submit"
-                  className="bg-indigo-500 text-white px-4 py-2 rounded-md text-sm focus:outline-none focus:shadow-outline-gray"                 
+                  className="bg-indigo-500 text-white px-4 py-2 rounded-md text-sm focus:outline-none focus:shadow-outline-gray"
                 >
                   Cambiar Contraseña
                 </button>

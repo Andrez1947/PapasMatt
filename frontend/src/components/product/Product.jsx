@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Product = ({ product }) => {
+const Product = ({ product }) => {  
   return (
     <div
       href={`/product/${product._id}`}
@@ -19,38 +19,11 @@ const Product = ({ product }) => {
             </h2>
             <p className="text-gray-400">{product.descripcion}</p>
           </div>
-          <Link to={`/product/${product._id}`}> 
-          <span           
-          className="mt-2 inline-block rounded-full bg-orange-400 p-3 text-sm font-medium text-white cursor-pointer">
-            <span className="text-white">$</span> {product.precio}{" "}
-          </span>
-          </Link>
         </div>
 
         <hr className="mt-4 mb-4" />
 
         <div className="flex flex-wrap justify-between ">
-          <p className="inline-flex items-center">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 stroke-orange-400 "
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
-
-            <span className="ml-2 text-gray-600">10 - 15 Mins</span>
-            <span className="mx-2">•</span>
-            <span className="text-gray-400">1Km</span>
-          </p>
-
           <p className="inline-flex items-center text-gray-600 ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,8 +41,23 @@ const Product = ({ product }) => {
               />
             </svg>
 
-            <span className="ml-2"> 5.0 (2.5k) </span>
+            <span className="ml-3"> 5.0 (2.5k) </span>
           </p>
+          <Link
+            to={`/product/${product._id}`}           
+            className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
+          >
+            <button
+              type="button"
+              className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white font-normal"
+            >
+              {product.precio.toLocaleString("es-CO", {
+                style: "currency",
+                currency: "COP",
+                minimumFractionDigits: 0,
+              })}
+            </button>
+          </Link>
         </div>
       </div>
     </div>
