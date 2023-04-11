@@ -4,7 +4,7 @@ import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword, clearErrors } from "../../actions/userActions";
 
-const NewPassword = (match) => {
+const NewPassword = ( {match} ) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -23,7 +23,7 @@ const NewPassword = (match) => {
       alert.success('Conraseña actualizada correctamente');
       Navigate('/login');
     }
-  }, [dispatch, alert, error, success]);
+  }, [dispatch, alert, error, success, Navigate]);
 
   // code to handle login
   const handleSubmit = (e) => {
@@ -45,7 +45,7 @@ const NewPassword = (match) => {
         </p>
         <div className="mt-8 bg-white shadow-lg rounded-lg">
           <div className="p-6">
-            <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <form onSubmit={handleSubmit}>
               <div className="mb-8">
                 <label
                   htmlFor="password_field"
@@ -57,7 +57,7 @@ const NewPassword = (match) => {
                   type="password"
                   id="password_field"
                   className="w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-                  placeholder="Ingresa tu nueva contraseña"
+                  placeholder="Ingresa tu contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -73,15 +73,16 @@ const NewPassword = (match) => {
                   type="password"
                   id="confirm_password_field"
                   className="w-full px-3 py-2 border border-gray-400 rounded-md shadow-sm focus:outline-none focus:ring-orange-500 focus:border-orange-500"
-                  placeholder="Ingresa tu nueva contraseña"
-                  value={password}
+                  placeholder="Confirma tu contraseña"
+                  value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
               <div className="flex justify-end">
                 <button
+                id="new_password_button"
                   type="submit"
-                  className="bg-indigo-500 text-white px-4 py-2 rounded-md text-sm focus:outline-none focus:shadow-outline-gray"                  
+                  className="bg-indigo-500 text-white px-4 py-2 rounded-md text-sm focus:outline-none focus:shadow-outline-gray"                 
                 >
                   Cambiar Contraseña
                 </button>

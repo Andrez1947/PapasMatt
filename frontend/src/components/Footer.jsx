@@ -1,6 +1,5 @@
 import React from "react";
 import ItemsContainer from "../utils/ItemsContainer";
-import rights from "../images/av.png";
 import { SocialIcons } from "../utils/SocialIcons";
 import { Icons } from "../utils/FMenu";
 
