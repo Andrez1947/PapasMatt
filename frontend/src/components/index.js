@@ -18,5 +18,5 @@ export {default as UpdateProfile} from "./user/UpdateProfile";
 export {default as UpdatePassword} from "./user/UpdatePassword";
 export {default as ForgotPassword} from "./user/ForgotPassword";
 export {default as NewPassword} from "./user/NewPassword";
-export {default as ProductDetails} from "./ProductDetails";
+export {default as ProductDetails} from "./productDetails";
 

@@ -21,7 +21,7 @@ router.route("/products").get(getProducts);
 //Obtain a single products in route /product/:id
 router
   .route("/product/:id")
-  .get(isAuthenticatedUser, authorizeRoles("admin"), getSingleProduct);
+  .get(isAuthenticatedUser, getSingleProduct);
 
 //create product in route /product/new
 router

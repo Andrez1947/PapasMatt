@@ -1,69 +1,115 @@
-import React, {useEffect} from "react";
-import {useDispatch, useSelector} from 'react-redux';
-import {getProductDetails, clearErrors} from '../actions/productActions';
+import React, { Fragment, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Loader from "./Loader";
+import { useAlert } from "react-alert";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductDetails, clearErrors } from "../actions/productActions";
 
-const ProductDetail = ({ product }) => {
+const ProductDetail = ({ match }) => {
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
+  const alert = useAlert();
+
+  const { loading, error, product } = useSelector(
+    (state) => state.productDetails
+  );
 
   useEffect(() => {
+    dispatch(getProductDetails(id));
 
-  })
+    if (error) {
+      alert.error(error);
+      dispatch(clearErrors());
+    }
+  }, [dispatch, alert, error, id]);
 
   return (
-    <div className="overflow-hidden rounded-2xl bg-gray-50">
-      <div className="flex items-center h-[400px] overflow-hidden">
-        <img src={product.imagen[0].url} alt={product.nombre} />
-      </div>
+    <Fragment>
+      {loading ? (
+        <Loader />
+      ) : (
+        <Fragment>
+          <div class="container container-fluid">
+              <div class="row f-flex justify-content-around">
+                <div class="col-12 col-lg-5 img-fluid" id="product_image">
+                <img src="https://i5.walmartimages.com/asr/1223a935-2a61-480a-95a1-21904ff8986c_1.17fa3d7870e3d9b1248da7b1144787f5.jpeg?odnWidth=undefined&odnHeight=undefined&odnBg=ffffff" alt="sdf" height="500" width="500"/>
+                </div>
 
-      <div className="p-6">
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <div>
-            <h2 className="mt-2 text-lg font-semibold text-gray-800 mb-4">
-              {product.nombre}
-            </h2>
-            <p className="text-gray-400">{product.descripcion}</p>
-          </div>
+                <div class="col-12 col-lg-5 mt-5">
+                  <h3>onn. 32” Class HD (720P) LED Roku Smart TV (100012589)</h3>
+                    <p id="product_id">Product # sklfjdk35fsdf5090</p>
 
-          <p className="inline-flex items-center text-gray-600">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 stroke-yellow-400"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              strokeWidth={2}
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-              />
-            </svg>
+                  <hr/>
 
-            <span className="ml-3"> 5.0 (2.5k) </span>
-          </p>
-        </div>
+                <div class="rating-outer">
+                    <div class="rating-inner"></div>
+                </div>
+                <span id="no_of_reviews">(5 Reviews)</span>
 
-        <hr className="mt-4 mb-4" />
+                <hr/>
 
-        <div className="flex flex-col items-start justify-between sm:flex-row sm:items-center">
-          <p className="text-gray-600 font-bold">
-            Precio:{" "}
-            {product.precio.toLocaleString("es-CO", {
-              style: "currency",
-              currency: "COP",
-              minimumFractionDigits: 0,
-            })}
-          </p>
+                <p id="product_price">$108.00</p>
+                <div class="stockCounter d-inline">
+                    <span class="btn btn-danger minus">-</span>
 
-          <button
-            type="button"
-            className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white font-normal"
-          >
-            Agregar al carrito
-          </button>
-        </div>
-      </div>
-    </div>
+                    <input type="number" class="form-control count d-inline" value="1" readOnly />
+
+                    <span class="btn btn-primary plus">+</span>
+                </div>
+                 <button type="button" id="cart_btn" class="btn btn-primary d-inline ml-4">Add to Cart</button>
+
+                <hr/>
+
+                <p>Status: <span id="stock_status">In Stock</span></p>
+
+                <hr/>
+
+                <h4 class="mt-2">Description:</h4>
+                <p>Binge on movies and TV episodes, news, sports, music and more! We insisted on 720p High Definition for this 32" LED TV, bringing out more lifelike color, texture and detail. We also partnered with Roku to bring you the best possible content with thousands of channels to choose from, conveniently presented through your own custom home screen.</p>
+                <hr/>
+                <p id="product_seller mb-3">Sold by: <strong>Amazon</strong></p>
+				
+				        <button id="review_btn" type="button" class="btn btn-primary mt-4" data-toggle="modal" data-target="#ratingModal">
+                            Submit Your Review
+                </button>
+				
+				              <div class="row mt-2 mb-5">
+                    <div class="rating w-50">
+
+                        <div class="modal fade" id="ratingModal" tabIndex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="ratingModalLabel">Submit Review</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                       
+
+                                        <textarea name="review" id="review" class="form-control mt-3">
+
+                                        </textarea>
+
+                                        <button class="btn my-3 float-right review-btn px-4 text-white" data-dismiss="modal" aria-label="Close">Submit</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>	
+                    </div>	
+                    </div>	
+                    </div>	
+                    </div>	                    					
+            
+        </Fragment>
+      )}
+    </Fragment>
   );
 };
 

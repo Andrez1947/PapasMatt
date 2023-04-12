@@ -138,10 +138,10 @@ const Header = () => {
             {user ? (
               <div className="ml-0 dropdown d-inline">
                 <Link to="#!" onClick={() => SetIsMenu(!isMenu)}>
-                  <div class="space-y-2 mr-5">
-                    <div class="w-8 h-0.5 bg-gray-600"></div>
-                    <div class="w-8 h-0.5 bg-gray-600"></div>
-                    <div class="w-8 h-0.5 bg-gray-600"></div>
+                  <div className="space-y-2 mr-5">
+                    <div className="w-8 h-0.5 bg-gray-600"></div>
+                    <div className="w-8 h-0.5 bg-gray-600"></div>
+                    <div className="w-8 h-0.5 bg-gray-600"></div>
                   </div>
                 </Link>
                 {isMenu && (
