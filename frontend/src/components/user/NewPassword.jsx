@@ -1,10 +1,10 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useMatch } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { resetPassword, clearErrors } from "../../actions/userActions";
 
-const NewPassword = ({ match }) => {
+const NewPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -13,6 +13,9 @@ const NewPassword = ({ match }) => {
   const Navigate = useNavigate();
 
   const { error, success } = useSelector((state) => state.forgotPassword);
+
+  const match = useMatch('/reset/password/:token');
+  const token = match?.params?.token;
 
   useEffect(() => {
     if (error) {
@@ -34,7 +37,7 @@ const NewPassword = ({ match }) => {
     formData.set("password", password);
     formData.set("confirmPassword", confirmPassword);
 
-    dispatch(resetPassword(match.params.token, formData));
+    dispatch(resetPassword(token, formData));
   };
 
   return (
