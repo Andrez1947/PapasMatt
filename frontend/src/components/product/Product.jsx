@@ -1,12 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Product = ({ product }) => {  
+const Product = ({ product }) => {
   return (
-    <div
-      href={`/product/${product._id}`}
-      className="overflow-hidden rounded-2xl bg-gray-50"
-    >
+    <div className="overflow-hidden rounded-2xl bg-gray-50">
       <div className="flex items-center h-[180px] overflow-hidden">
         <img src={product.imagen[0].url} alt="Hamburger" />
       </div>
@@ -44,7 +41,7 @@ const Product = ({ product }) => {
             <span className="ml-3"> 5.0 (2.5k) </span>
           </p>
           <Link
-            to={`/product/${product._id}`}           
+            to={`/product/${product._id}`}
             className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
           >
             <button
