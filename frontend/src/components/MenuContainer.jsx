@@ -1,5 +1,6 @@
 import React from "react";
 import HCards from './HCards';
+import CartContainer from '../components/product/CartContainer';
 
 const MenuContainer = () => {  
 
@@ -14,7 +15,8 @@ const MenuContainer = () => {
         <div className="w-full lg:w-[950px] justify-center gap-8 py-0">           
         <HCards/>
         </div>                 
-        </div>      
+        </div>  
+        <CartContainer/>    
     </section>
   );
 };

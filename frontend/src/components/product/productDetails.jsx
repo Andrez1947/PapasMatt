@@ -15,7 +15,7 @@ const ProductDetails = () => {
 
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
-  );
+  );  
 
   useEffect(() => {
     dispatch(getProductDetails(id));
@@ -64,10 +64,11 @@ const ProductDetails = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div>          
         </Fragment>
       )}
     </Fragment>
+    
   );
 };
 
