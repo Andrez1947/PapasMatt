@@ -40,7 +40,7 @@ const UpdateProfile = () => {
         type: UPDATE_PROFILE_RESET,
       });
     }
-  }, [dispatch, alert, error, navigate, isUpdated]);
+  }, [dispatch, alert, error,user, navigate, isUpdated]);
 
   // code to handle login
   const handleSubmit = (e) => {

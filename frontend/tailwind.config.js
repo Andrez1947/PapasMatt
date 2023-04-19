@@ -2,6 +2,12 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
+      /* Agrega estilos personalizados */
+      scrollbar: ['dark'],
+      /* Oculta la barra de scroll en navegadores webkit */
+      '-webkit-scrollbar': {
+        display: 'none',
+      },
       width: {
         150: "150px",
         190: "190px",
@@ -61,5 +67,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar'),
+  ],
 };

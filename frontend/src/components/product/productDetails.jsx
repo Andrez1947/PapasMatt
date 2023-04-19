@@ -3,6 +3,8 @@ import Loader from "../Loader";
 import { Link } from "react-router-dom";
 import { useMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { BiMinus, BiPlus } from "react-icons/bi";
+import { motion } from "framer-motion";
 import { useAlert } from "react-alert";
 import { getProductDetails, clearErrors } from "../../actions/productActions";
 
@@ -16,7 +18,7 @@ const ProductDetails = () => {
   const { product, loading, error } = useSelector(
     (state) => state.productDetails
   );  
-
+  
   useEffect(() => {
     dispatch(getProductDetails(id));
 
@@ -49,7 +51,18 @@ const ProductDetails = () => {
                   {product.nombre}
                 </h2>
                 <p className="text-gray-400">{product.descripcion}</p>
-                <div className="mt-4 flex items-center justify-between">                  
+                <div className="mt-4 flex items-center justify-between">
+                <div className="group flex items-center gap-2 ml-auto cursor-pointer">
+              <motion.div whileTap={{ scale: 0.75 }} className="">
+                <BiMinus className="text-textColor " />
+              </motion.div>
+              <p className="w-5 h-5 rounded-sm text-textColor flex items-center justify-center">
+                1
+              </p>
+              <motion.div whileTap={{ scale: 0.75 }} className="">
+                <BiPlus className="text-gray-50 " />
+              </motion.div>
+            </div>                  
                   <Link
                     to={`/product/${product._id}`}
                     className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"

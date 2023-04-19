@@ -41,7 +41,7 @@ const Product = ({ product }) => {
             <span className="ml-3"> 5.0 (2.5k) </span>
           </p>
           <Link
-            to={`/product/${product._id}`}
+            to={`menu/product/${product._id}`}
             className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
           >
             <button
