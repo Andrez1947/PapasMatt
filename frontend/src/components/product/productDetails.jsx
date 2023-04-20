@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useAlert } from "react-alert";
 import { getProductDetails, clearErrors } from "../../actions/productActions";
 import { motion } from "framer-motion";
+import {addItemToCart} from '../../actions/cartActions';
 
 const ProductDetails = () => {
   const match = useMatch("/product/:id");
@@ -29,6 +30,11 @@ const ProductDetails = () => {
       dispatch(clearErrors());
     }
   }, [dispatch, alert, error, id]);
+
+  const addToCart = () => {
+    dispatch(addItemToCart(match.params.id, quantity));
+    alert.success('Producto agregado al carrito')
+  }
 
   const increaseQty = () => {
     setQuantity((prevQty) => prevQty + 1);
@@ -102,11 +108,17 @@ const ProductDetails = () => {
                         to={`/product/${product._id}`}
                         className="relative p-0.5 inline-flex items-center justify-center font-bold overflow-hidden group rounded-md"
                       >
+                        <h1                       
+                          className="w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-textColor font-normal"
+                        >
+                          {product.precio}
+                        </h1>
                         <button
                           type="button"
                           className="bg-gradient-to-br from-orange-400 to-orange-500 w-full md:w-auto px-4 py-2 rounded-lg hover:shadow-lg transition-all ease-in-out duration-100 text-white font-normal"
+                          onClick={addToCart}
                         >
-                          {product.precio}
+                          Agregar al carrito
                         </button>
                       </Link>
                     </div>

@@ -1,31 +1,20 @@
 import axios from "axios";
 
-import {
-  ALL_PRODUCTS_REQUEST,
-  ALL_PRODUCTS_SUCCESS,
-  ALL_PRODUCTS_FAIL 
-} from "../constants/productConstants";
+import {ADD_TO_CART} from '../constants/cartConstants';
 
-export const addToCart = (categoria) => async (dispatch) => {
-  try {
-    dispatch({ type: ALL_PRODUCTS_REQUEST });
+export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
+  const { data } = await  axios.get(`/api/v1/product/${id}`)
 
-    let link = `api/v1/products`;
-
-    if (categoria && categoria !== "") {
-      link = `api/v1/products?categoria=${categoria}`;
+  dispatch({
+    type: ADD_TO_CART,
+    payload: {
+      product: data.product_id,
+      name: Date.product.nombre,
+      price: data.product.precio,
+      image: data.product.imagen[0].url,
+      quantity
     }
+  })
 
-    const { data } = await axios.get(link);
-
-    dispatch({
-      type: ALL_PRODUCTS_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: ALL_PRODUCTS_FAIL,
-      payload: error.response.data.message,
-    });
-  }
-};
+  localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems))
+}
