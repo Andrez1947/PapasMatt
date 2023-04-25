@@ -1,5 +1,4 @@
 import axios from "axios";
-
 import {ADD_TO_CART} from '../constants/cartConstants';
 
 export const addItemToCart = (id, quantity) => async (dispatch, getState) => {
