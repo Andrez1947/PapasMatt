@@ -31,8 +31,7 @@ const CartContainer = () => {
                 Limpiar <RiRefreshFill />
               </motion.p>
             </div>
-            {/*Bottom section*/}
-            
+            {/*Bottom section*/}            
               <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col">
                 <div className="w-full h-600 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-scroll scroll-none">
                   {/*Cart Item section*/}
