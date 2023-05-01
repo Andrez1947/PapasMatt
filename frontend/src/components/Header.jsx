@@ -12,6 +12,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   const { user, loading } = useSelector((state) => state.auth);
+  const {cartItems} = useSelector(state => state.cart);
 
   const [isMenu, SetIsMenu] = useState(false);
 
@@ -62,7 +63,7 @@ const Header = () => {
                 <MdShoppingBasket className="text-textColor text-2xl ml-8 cursor-pointer" />
               </div>
               <div className="w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-                <p className="text-xs text-white font-semibold">2</p>
+                <p className="text-xs text-white font-semibold">{cartItems.length}</p>
               </div>
             </Link>
             <div className="flex z-50 mt-0 ml-0 mr-0">
@@ -123,7 +124,7 @@ const Header = () => {
             <div className="relative flex items-center justify-center">
               <MdShoppingBasket className="text-textColor text-2xl cursor-pointer" />
               <div className="absolute -top-2 -right-2 w-5 h-5 rounded-full bg-cartNumBg flex items-center justify-center">
-                <p className="text-xs text-white font-semibold">2</p>
+                <p className="text-xs text-white font-semibold">{cartItems.length}</p>
               </div>
             </div>
           </Link>
