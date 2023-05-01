@@ -9,14 +9,14 @@ import { motion } from "framer-motion";
 
 const CartContainer = () => {
   const dispatch = useDispatch();
-  const { cartItems } = useSelector((state) => state.cart);
+  const { cartItems } = useSelector(state => state.cart);
 
   return (
     <Fragment>
-      {cartItems.length === 0 ? (
+      {cartItems.length === 0 ? 
         <h2 className="mt-5">Tu carrito está vacio</h2>
-      ) : (
-        <Fragment>
+       : (
+        <Fragment>          
           <div className="fixed top-0 right-0 w-full md:w-375 h-screen bg-white drop-shadow-md flex flex-col z-[101]">
             <div className="w-full flex items-center justify-between p-4 cursor-pointer">
               <motion.div whileTap={{ scale: 0.75 }}>
@@ -32,12 +32,13 @@ const CartContainer = () => {
               </motion.p>
             </div>
             {/*Bottom section*/}
-            {cartItems.map((item) => (
+            
               <div className="w-full h-full bg-cartBg rounded-t-[2rem] flex flex-col">
                 <div className="w-full h-600 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-scroll scroll-none">
                   {/*Cart Item section*/}
-
+                  {cartItems.map(item => (
                   <Fragment>
+                  <hr />
                     <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2">
                       <img
                         src={item.imagen}
@@ -64,7 +65,9 @@ const CartContainer = () => {
                         </motion.div>
                       </div>
                     </div>
+                    <hr />
                   </Fragment>
+                   ))}
                 </div>
                 {/*Cart total section*/}
                 <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
@@ -85,7 +88,7 @@ const CartContainer = () => {
                   </motion.button>
                 </div>
               </div>
-            ))}
+           
           </div>
         </Fragment>
       )}
