@@ -1,15 +1,30 @@
 import React, { Fragment } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { RiRefreshFill } from "react-icons/ri";
-import { BiMinus, BiPlus } from "react-icons/bi";
 import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
+import { RiRefreshFill } from "react-icons/ri";
+import { BiMinus, BiPlus } from "react-icons/bi";
 import { motion } from "framer-motion";
 
 const CartContainer = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { cartItems } = useSelector((state) => state.cart);
+  const { user } = useSelector((state) => state.auth);
+
+  const checkOutHandler = () => {
+    if (user) {
+      navigate("/shipping");
+    } else {
+      navigate("/login");
+    }
+  };
+
+  const removeCartItemHandler = (id) => {
+    dispatch(removeItemFromCart(id));
+  };
 
   return (
     <Fragment>
