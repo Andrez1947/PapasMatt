@@ -14,6 +14,18 @@ const CartContainer = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
+  const increaseQty = (id, quantity, inventario) => {
+    const newQty = quantity + 1;
+    if (newQty >= 0) return;
+    dispatch(addItemToCart(id, newQty));
+  };
+
+  const decreaseQty = (id, quantity) => {
+    const newQty = quantity - 1;
+    if (newQty <= 0) return;
+    dispatch(addItemToCart(id, newQty));
+  };
+
   const checkOutHandler = () => {
     if (user) {
       navigate("/shipping");
@@ -67,15 +79,34 @@ const CartContainer = () => {
                       </div>
                       {/*button section*/}
                       <div className="group flex items-center gap-2 ml-auto cursor-pointer">
-                        <motion.div whileTap={{ scale: 0.75 }} className="">
-                          <BiMinus className="text-gray-50 " />
+                        <motion.div whileTap={{ scale: 0.75 }} 
+                        >
+                          <BiMinus className="text-gray-50 " 
+                          onClick={() => decreaseQty(item.product, item.quantity)}/>
                         </motion.div>
                         <p className="w-5 h-5 rounded-sm bg-cartBg text-gray-50 flex items-center justify-center">
                           {item.quantity}
                         </p>
-                        <motion.div whileTap={{ scale: 0.75 }} className="">
-                          <BiPlus className="text-gray-50 " />
+                        <motion.div whileTap={{ scale: 0.75 }}
+                        >
+                          <BiPlus className="text-gray-50 " 
+                          onClick={()=>increaseQty(item.product, item.quantity)}/>
                         </motion.div>
+                        <div className="col-4 col-lg-1 mt-0 mt-lg-0 ml-2">
+                          <button
+                            className="flex items-center justify-center h-5 w-5 bg-red-500 rounded-full hover:bg-red-600"
+                            id="delete_cart_item"
+                            onClick={() => removeCartItemHandler(item.product)}
+                          >
+                            <svg
+                              className="w-4 h-4 fill-current"
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 20 20"
+                            >
+                              <path d="M16.667 5h-3.334l-.666-1.333h-6l-.666 1.333H3.333v2h13.334v-2zM5 17v-8h10v8H5z" />
+                            </svg>
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </Fragment>
@@ -84,8 +115,26 @@ const CartContainer = () => {
               {/*Cart total section*/}
               <div className="w-full flex-1 bg-cartTotal rounded-t-[2rem] flex flex-col items-center justify-evenly px-8 py-2">
                 <div className="w-full flex items-center justify-between">
+                  <p className="text-gray-400 text-lg">Productos</p>
+                  <p className="text-gray-400 text-lg">
+                    {cartItems.reduce(
+                      (acc, item) => acc + Number(item.quantity),
+                      0
+                    )}{" "}
+                    (Unidades)
+                  </p>
+                </div>
+                <div className="w-full flex items-center justify-between">
                   <p className="text-gray-400 text-lg">Sub Total</p>
-                  <p className="text-gray-400 text-lg">$ 25000</p>
+                  <p className="text-gray-400 text-lg">
+                    $
+                    {cartItems
+                      .reduce(
+                        (acc, item) => acc + item.quantity * item.precio,
+                        0
+                      )
+                      .toFixed(0)}
+                  </p>
                 </div>
                 <div className="w-full flex items-center justify-between">
                   <p className="text-gray-400 text-lg">Domicilio</p>
@@ -95,8 +144,9 @@ const CartContainer = () => {
                   whileTap={{ scale: 0.8 }}
                   type="button"
                   className="w-full p-2 rounded-full bg-gradient-to-tr from-orange-400 to-orange-600 text-gray-50 text-lg my-2 hover:shadow-lg"
+                  onClick={checkOutHandler}
                 >
-                  Check Out
+                  Ordenar ahora
                 </motion.button>
               </div>
             </div>
