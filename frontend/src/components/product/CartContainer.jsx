@@ -15,13 +15,13 @@ const CartContainer = () => {
 
   const increaseQty = (id, quantity) => {
     const newQty = quantity + 1;
-    if (newQty >= 0) return;
+    if (newQty <= 0) return;
     dispatch(addItemToCart(id, newQty));
   };
 
   const decreaseQty = (id, quantity) => {
     const newQty = quantity - 1;
-    if (newQty <= 0) return;
+    if (newQty < 1) return;
     dispatch(addItemToCart(id, newQty));
   };
 
@@ -63,8 +63,7 @@ const CartContainer = () => {
                 {/*Cart Item section*/}
                 {cartItems.map((item) => (
                   <Fragment key={item._id}>
-                    <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2"
-                    >
+                    <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2">
                       <img
                         src={item.imagen}
                         alt="Product"
@@ -74,23 +73,29 @@ const CartContainer = () => {
                       <div className="flex flex-col gap-2">
                         <p className="text-base text-gray-50">{item.nombre} </p>
                         <p className="text-sm block text-gray-300 font-semibold">
-                          {item.precio}
+                        {item.precio * item.quantity}
                         </p>
                       </div>
                       {/*button section*/}
                       <div className="group flex items-center gap-2 ml-auto cursor-pointer">
-                        <motion.div whileTap={{ scale: 0.75 }} 
-                        >
-                          <BiMinus className="text-gray-50 " 
-                          onClick={() => decreaseQty(item.product, item.quantity)}/>
+                        <motion.div whileTap={{ scale: 0.75 }}>
+                          <BiMinus
+                            className="text-gray-50 "
+                            onClick={() =>
+                              decreaseQty(item.product, item.quantity)
+                            }
+                          />
                         </motion.div>
                         <p className="w-5 h-5 rounded-sm bg-cartBg text-gray-50 flex items-center justify-center">
                           {item.quantity}
                         </p>
-                        <motion.div whileTap={{ scale: 0.75 }}
-                        >
-                          <BiPlus className="text-gray-50 " 
-                          onClick={()=>increaseQty(item.product, item.quantity)}/>
+                        <motion.div whileTap={{ scale: 0.75 }}>
+                          <BiPlus
+                            className="text-gray-50 "
+                            onClick={() =>
+                              increaseQty(item.product, item.quantity)
+                            }
+                          />
                         </motion.div>
                         <div className="col-4 col-lg-1 mt-0 mt-lg-0 ml-2">
                           <button
