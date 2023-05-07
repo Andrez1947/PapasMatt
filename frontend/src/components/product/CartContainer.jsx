@@ -1,8 +1,7 @@
 import React, { Fragment } from "react";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
-import { useAlert } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addItemToCart, removeItemFromCart } from "../../actions/cartActions";
 import { RiRefreshFill } from "react-icons/ri";
 import { BiMinus, BiPlus } from "react-icons/bi";
@@ -14,7 +13,7 @@ const CartContainer = () => {
   const { cartItems } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
-  const increaseQty = (id, quantity, inventario) => {
+  const increaseQty = (id, quantity) => {
     const newQty = quantity + 1;
     if (newQty >= 0) return;
     dispatch(addItemToCart(id, newQty));
@@ -63,8 +62,9 @@ const CartContainer = () => {
               <div className="w-full h-600 md:h-42 px-6 py-10 flex flex-col gap-3 overflow-scroll scroll-none">
                 {/*Cart Item section*/}
                 {cartItems.map((item) => (
-                  <Fragment>
-                    <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2">
+                  <Fragment key={item._id}>
+                    <div className="w-full p-1 px-2 rounded-lg bg-cartItem flex items-center gap-2"
+                    >
                       <img
                         src={item.imagen}
                         alt="Product"
