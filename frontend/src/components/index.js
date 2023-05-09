@@ -20,4 +20,5 @@ export {default as ForgotPassword} from "./user/ForgotPassword";
 export {default as NewPassword} from "./user/NewPassword";
 export {default as ProductDetails} from "./product/productDetails";
 export {default as CartContainer} from "./product/CartContainer";
+export {default as Shipping} from "./product/Shipping";
 

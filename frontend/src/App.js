@@ -8,6 +8,7 @@ import {
   CreateContainer,
   MenuContainer,
   CartContainer,
+  Shipping,
   ProductDetails,
   Login,
   Register,
@@ -38,6 +39,7 @@ const App = () => {
               <Route path="/createItem" element={<CreateContainer />} />
               <Route path="/menu" element={<MenuContainer />} />  
               <Route path="/cart" element={<CartContainer />} /> 
+              <Route path="/shipping" element={<Shipping />} /> 
               <Route path="/product/:id" element={<ProductDetails/>} />            
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
