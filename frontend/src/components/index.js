@@ -22,4 +22,7 @@ export {default as ProductDetails} from "./product/productDetails";
 export {default as CartContainer} from "./product/CartContainer";
 export {default as Shipping} from "./product/Shipping";
 export {default as CheckoutStepsComponent} from "./product/CheckoutStepsComponent";
+export {default as ConfirmOrders} from "./product/ConfirmOrders";
+
+
 

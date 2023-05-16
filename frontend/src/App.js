@@ -9,6 +9,8 @@ import {
   MenuContainer,
   CartContainer,
   Shipping,
+  ConfirmOrders,
+  CheckoutStepsComponent,
   ProductDetails,
   Login,
   Register,
@@ -40,6 +42,8 @@ const App = () => {
               <Route path="/menu" element={<MenuContainer />} />  
               <Route path="/cart" element={<CartContainer />} /> 
               <Route path="/shipping" element={<Shipping />} /> 
+              <Route path="/confirm" element={<ConfirmOrders />} /> 
+              <Route path="/confirm" element={<CheckoutStepsComponent />} /> 
               <Route path="/product/:id" element={<ProductDetails/>} />            
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
