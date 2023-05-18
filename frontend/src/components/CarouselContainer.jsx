@@ -6,20 +6,20 @@ import { RxDotFilled } from 'react-icons/rx';
 const CarouselContainer = ({ images }) => {
   const slides = [
     {
-      url: 'https://images.unsplash.com/photo-1594179047519-f347310d3322?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+      url: 'https://res.cloudinary.com/papasmatt/image/upload/v1684198917/Carousel/_MG_8489_mfsckj.jpg',
     },
     {
-      url: 'https://images.unsplash.com/photo-1610614819513-58e34989848b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80',
+      url: 'https://res.cloudinary.com/papasmatt/image/upload/v1684198917/Carousel/_MG_8439_rftemn.jpg',
     },
     {
-      url: 'https://images.unsplash.com/photo-1552604617-eea98aa27234?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1113&q=80',
+      url: 'https://res.cloudinary.com/papasmatt/image/upload/v1684198917/Carousel/_MG_8424_ygj4oo.jpg',
     },
 
     {
-      url: 'https://images.unsplash.com/photo-1536255187577-810d29780d1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+      url: 'https://res.cloudinary.com/papasmatt/image/upload/v1684198917/Carousel/_MG_8489_mfsckj.jpg',
     },
     {
-      url: 'https://images.unsplash.com/photo-1505826759037-406b40feb4cd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80',
+      url: 'https://res.cloudinary.com/papasmatt/image/upload/v1684198917/Carousel/_MG_8489_mfsckj.jpg',
     },
   ];
 

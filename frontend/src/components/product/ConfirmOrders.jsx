@@ -31,8 +31,8 @@ const ConfirmOrders = () => {
     <Fragment>
       <div className="container mx-auto max-w-4xl">
         <div className="flex flex-col items-center justify-center mt-10">
-          <CheckoutStepsComponent shipping />
-          {/* Logo del restaurante */}
+          <CheckoutStepsComponent shipping confirmOrder />
+          
           <div className="mb-4 mt-10">
             <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-full before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto mb-10">
               Información de Envío
