@@ -12,6 +12,7 @@ import {
   ConfirmOrders,
   CheckoutStepsComponent,
   ProductDetails,
+  OrdeningComponent,
   Login,
   Register,
   Profile,
@@ -52,6 +53,7 @@ const App = () => {
               <Route path="/password/update" element={<UpdatePassword />} />
               <Route path="/password/forgot" element={<ForgotPassword />} />
               <Route path="/password/reset/:token" element={<NewPassword />} />
+              <Route path="/order/:id" element={<OrdeningComponent />} />
             </Routes>
           </main>
           <Footer />
