@@ -24,3 +24,4 @@ export {default as Shipping} from "./product/Shipping";
 export {default as CheckoutStepsComponent} from "./product/CheckoutStepsComponent";
 export {default as ConfirmOrders} from "./product/ConfirmOrders";
 export {default as OrdeningComponent} from "./order/OrdeningComponent";
+export {default as Payment} from "./product/Payment";
