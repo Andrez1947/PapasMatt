@@ -1,4 +1,4 @@
-import { React, useEffect } from "react";
+import { React, useEffect, useState } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import {
@@ -26,10 +26,21 @@ import { AnimatePresence } from "framer-motion";
 
 import { loadUser } from "./actions/userActions";
 import store from "./store";
+import axios from "axios";
 
 const App = () => {
+
+  const [mercadopagoApiKey, setMercadopagoApiKey] = useState('');
+
   useEffect(() => {
     store.dispatch(loadUser());
+
+    async function getMercadoPagoApiKey(){
+      const {data} = await axios.get('/api/v1/mercadopagoapi');
+      setMercadopagoApiKey(data.mercadopagoApiKey)
+    }
+
+    getMercadoPagoApiKey();
   }, []);
 
   return (
