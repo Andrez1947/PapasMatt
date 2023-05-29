@@ -16,12 +16,15 @@ app.use(fileUpload());
 //Import all routes
 const products = require('./routes/product');
 const auth = require('./routes/auth');
+const payment = require('./routes/payment');
 const order = require('./routes/order');
 
 //Default route (It'll go after all routes that I create)
 app.use('/api/v1', products);
 //Default route  by create user
-app.use('/api/v1', auth)
+app.use('/api/v1', auth);
+//Default route  by create a payment
+app.use('/api/v1', payment)
 //Default route  by create order
 app.use('/api/v1', order)
 
