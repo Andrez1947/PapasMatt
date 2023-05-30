@@ -129,111 +129,117 @@ const Shipping = () => {
                   </label>
                   <div className="flex space-x-4">
                     <button
-                      className='w-full px-4 py-2 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-md' 
+                      className={`w-full px-4 py-2 rounded-md ${
+                        selectedPaymentMethod === "tarjeta"
+                          ? "bg-black text-white"
+                          : "bg-gradient-to-br from-orange-400 to-orange-500 text-white"
+                      }`}
                       onClick={(e) => {
                         setSelectedPaymentMethod("tarjeta");
-                        setPaymentSubmitted(false); // Restablecer el estado de paymentSubmitted a false
-                        e.preventDefault(); // Evitar que el formulario se envíe automáticamente
+                        setPaymentSubmitted(false);
+                        e.preventDefault();
                       }}
                     >
                       Tarjeta de crédito
                     </button>
                     <button
-                      className='w-full px-4 py-2 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-md' 
+                      className={`w-full px-4 py-2 rounded-md ${
+                        selectedPaymentMethod === "efectivo"
+                          ? "bg-black text-white"
+                          : "bg-gradient-to-br from-orange-400 to-orange-500 text-white"
+                      }`}
                       onClick={(e) => {
                         setSelectedPaymentMethod("efectivo");
-                        setPaymentSubmitted(false); // Restablecer el estado de paymentSubmitted a false
-                        e.preventDefault(); // Evitar que el formulario se envíe automáticamente
+                        setPaymentSubmitted(false);
+                        e.preventDefault();
                       }}
                     >
                       Efectivo
                     </button>
                   </div>
                 </div>
-                {/* Botón de ordenar */}
-                {paymentSubmitted ? (
-                  <p>¡Gracias por completar tus datos de pago!</p>
-                ) : (
+                {/* Columna del 30% */}
+                <div className="w-full md:w-3/10 md:mt-20 md:pl-4 md:ml-10">
+                  {/* Cupón de descuento */}
+                  <div className="mb-4">
+                    <label htmlFor="coupon" className="block mb-2 font-bold">
+                      Cupón de descuento
+                    </label>
+                    <input
+                      type="text"
+                      id="coupon"
+                      className="w-full px-4 py-2 border border-gray-300 rounded-md"
+                    />
+                  </div>
+                  {/* Subtotal y total a pagar */}
+                  <div className="mb-4">
+                    <div className="flex justify-between mb-2">
+                      <span className="font-bold">Subtotal:</span>
+                      <span>
+                        $
+                        {cartItems
+                          .reduce(
+                            (acc, item) => acc + item.quantity * item.precio,
+                            0
+                          )
+                          .toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="font-bold">Total a pagar:</span>
+                      <span>
+                        $
+                        {cartItems
+                          .reduce(
+                            (acc, item) => acc + item.quantity * item.precio,
+                            0
+                          )
+                          .toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Resumen de productos en el carrito */}
+                  <div className="rounded-lg border border-gray-300 p-5 pt-0">
+                    <h2 className="text-xl font-bold mt-4 mb-4">
+                      Resumen del carrito
+                    </h2>
+                    <ul>
+                      {cartItems.map((item) => (
+                        <li key={item.product}>
+                          <div className="flex items-center mb-2">
+                            <img
+                              src={item.imagen}
+                              alt={item.nombre}
+                              className="w-10 h-10 mr-2 rounded-full"
+                            />
+                            <div>
+                              <p className="block mb-2 font-bold">
+                                {item.nombre}
+                              </p>
+                              <p>
+                                {new Intl.NumberFormat("en-US", {
+                                  style: "currency",
+                                  currency: "USD",
+                                  minimumFractionDigits: 0,
+                                }).format(item.precio)}
+                              </p>
+                            </div>
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+                {/* Botón de ordenar */}                
                   <button
                     type="submit"
-                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-md"
+                    className="w-full px-4 py-2 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-md mt-10"
                   >
                     Ordenar
                   </button>
-                )}
+              
               </form>
-            </div>
-
-            {/* Columna del 30% */}
-            <div className="w-full md:w-3/10 md:mt-20 md:pl-4 md:ml-10">
-              {/* Cupón de descuento */}
-              <div className="mb-4">
-                <label htmlFor="coupon" className="block mb-2 font-bold">
-                  Cupón de descuento
-                </label>
-                <input
-                  type="text"
-                  id="coupon"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                />
-              </div>
-              {/* Subtotal y total a pagar */}
-              <div className="mb-4">
-                <div className="flex justify-between mb-2">
-                  <span className="font-bold">Subtotal:</span>
-                  <span>
-                    $
-                    {cartItems
-                      .reduce(
-                        (acc, item) => acc + item.quantity * item.precio,
-                        0
-                      )
-                      .toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="font-bold">Total a pagar:</span>
-                  <span>
-                    $
-                    {cartItems
-                      .reduce(
-                        (acc, item) => acc + item.quantity * item.precio,
-                        0
-                      )
-                      .toLocaleString()}
-                  </span>
-                </div>
-              </div>
-
-              {/* Resumen de productos en el carrito */}
-              <div className="rounded-lg border border-gray-300 p-5 pt-0">
-                <h2 className="text-xl font-bold mt-4 mb-4">
-                  Resumen del carrito
-                </h2>
-                <ul>
-                  {cartItems.map((item) => (
-                    <li key={item.product}>
-                      <div className="flex items-center mb-2">
-                        <img
-                          src={item.imagen}
-                          alt={item.nombre}
-                          className="w-10 h-10 mr-2 rounded-full"
-                        />
-                        <div>
-                          <p className="block mb-2 font-bold">{item.nombre}</p>
-                          <p>
-                            {new Intl.NumberFormat("en-US", {
-                              style: "currency",
-                              currency: "USD",
-                              minimumFractionDigits: 0,
-                            }).format(item.precio)}
-                          </p>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
             </div>
           </div>
         </div>
