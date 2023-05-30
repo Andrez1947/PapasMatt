@@ -4,12 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { saveShippingInfo } from "../../actions/cartActions";
 import CheckoutStepsComponent from "./CheckoutStepsComponent";
 
-
 const Shipping = () => {
   const Navigate = useNavigate();
   const { shippingInfo, cartItems } = useSelector((state) => state.cart);
 
-   const [email, setEmail] = useState(shippingInfo.email);
+  const [email, setEmail] = useState(shippingInfo.email);
 
   const [address, setAddress] = useState(shippingInfo.address);
 
@@ -17,7 +16,9 @@ const Shipping = () => {
 
   const [billingType, setBillingType] = useState("personal");
 
-  const [paymentMethod, setPaymentMethod] = useState("");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("");
+
+  const [paymentSubmitted, setPaymentSubmitted] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -30,12 +31,14 @@ const Shipping = () => {
         address,
         phoneNumber,
         billingType,
-        paymentMethod,
-      }),
-      Navigate('/confirm')
-    );    
+        paymentMethod: selectedPaymentMethod,
+      })
+    );
+
+    setPaymentSubmitted(true);
+    Navigate("/confirm");
   };
-    return (
+  return (
     <Fragment>
       <div className="container mx-auto max-w-4xl">
         <div className="flex flex-col items-center justify-center mt-10">
@@ -124,25 +127,40 @@ const Shipping = () => {
                   >
                     Método de pago
                   </label>
-                  <select
-                    id="paymentMethod"
-                    className="w-full px-4 py-2 border border-gray-300 rounded-md"
-                    value={paymentMethod}
-                    onChange={(e) => setPaymentMethod(e.target.value)}
-                    placeholder="Seleccionar método de pago"
-                    required
-                  >
-                    <option value="tarjeta">Tarjeta de crédito</option>
-                    <option value="efectivo">Efectivo</option>
-                  </select>
+                  <div className="flex space-x-4">
+                    <button
+                      className='w-full px-4 py-2 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-md' 
+                      onClick={(e) => {
+                        setSelectedPaymentMethod("tarjeta");
+                        setPaymentSubmitted(false); // Restablecer el estado de paymentSubmitted a false
+                        e.preventDefault(); // Evitar que el formulario se envíe automáticamente
+                      }}
+                    >
+                      Tarjeta de crédito
+                    </button>
+                    <button
+                      className='w-full px-4 py-2 bg-gradient-to-br from-orange-400 to-orange-500 text-white rounded-md' 
+                      onClick={(e) => {
+                        setSelectedPaymentMethod("efectivo");
+                        setPaymentSubmitted(false); // Restablecer el estado de paymentSubmitted a false
+                        e.preventDefault(); // Evitar que el formulario se envíe automáticamente
+                      }}
+                    >
+                      Efectivo
+                    </button>
+                  </div>
                 </div>
                 {/* Botón de ordenar */}
-                <button
-                  type="submit"
-                  className="w-full px-4 py-2 bg-blue-500 text-white rounded-md"
-                >
-                  Ordenar
-                </button>
+                {paymentSubmitted ? (
+                  <p>¡Gracias por completar tus datos de pago!</p>
+                ) : (
+                  <button
+                    type="submit"
+                    className="w-full px-4 py-2 bg-blue-500 text-white rounded-md"
+                  >
+                    Ordenar
+                  </button>
+                )}
               </form>
             </div>
 
@@ -219,7 +237,7 @@ const Shipping = () => {
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </Fragment>
   );
 };

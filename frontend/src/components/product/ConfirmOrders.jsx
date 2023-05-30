@@ -21,7 +21,7 @@ const ConfirmOrders = () => {
     const data = {
       precioItems: precioItems.toFixed(0),
       precioEnvio,
-      precioTotal,
+      precioTotal,      
     };
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
@@ -98,6 +98,13 @@ const ConfirmOrders = () => {
 
                 <p className="mb-2">
                   Total: <span className="font-bold">${precioTotal}</span>
+                </p>
+                <h4 className="text-lg font-semibold capitalize text-headingColor relative mr-auto mt-10 mb-3 md:mt-0 ">
+                  Método de pago
+                </h4>
+                <hr className="mb-2" />
+                <p className="mb-2">
+                  Método elegido: <span className="font-bold">{shippingInfo.paymentMethod}</span>
                 </p>
                 <hr className="my-2" />
                 <button
