@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import CheckoutStepsComponent from "./CheckoutStepsComponent";
+import axios from "axios";
 
 const ConfirmOrders = () => {
-  const navigate = useNavigate();
+  const Navigate = useNavigate();
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
@@ -17,22 +18,36 @@ const ConfirmOrders = () => {
 
   const precioTotal = (precioItems + precioEnvio).toFixed(0);
 
-  const processToPayment = () => {
+  const [paymentUrl, setPaymentUrl] = useState("");
+
+  const processToPayment = async () => {
     const data = {
-      precioItems: precioItems.toFixed(0),
-      precioEnvio,
-      precioTotal,      
+      amount: precioTotal,
     };
 
     sessionStorage.setItem("orderInfo", JSON.stringify(data));
-    navigate("/payment");
+
+    try {
+      const response = await axios.post("/api/v1/payment/process", {
+        amount: data.amount, // Enviar el monto al servidor
+      });
+      const { payment_url } = response.data;
+      setPaymentUrl(payment_url);
+
+      // Redireccionar al punto de inicio de Mercado Pago
+      if (payment_url) {
+        window.open(payment_url, "_blank");
+      }
+    } catch (error) {
+      // Manejo de errores
+    }
   };
   return (
     <Fragment>
       <div className="container mx-auto max-w-4xl">
         <div className="flex flex-col items-center justify-center mt-10">
           <CheckoutStepsComponent shipping confirmOrder />
-          
+
           <div className="mb-4 mt-10">
             <p className="text-2xl font-semibold capitalize text-headingColor relative before:absolute before:rounded-lg before:content before:w-full before:h-1 before:-bottom-2 before:left-0 before:bg-gradient-to-tr from-orange-400 to-orange-600 transition-all ease-in-out duration-100 mr-auto mb-10">
               Información de Envío
@@ -104,7 +119,10 @@ const ConfirmOrders = () => {
                 </h4>
                 <hr className="mb-2" />
                 <p className="mb-2">
-                  Método elegido: <span className="font-bold">{shippingInfo.paymentMethod}</span>
+                  Método elegido:{" "}
+                  <span className="font-bold">
+                    {shippingInfo.paymentMethod}
+                  </span>
                 </p>
                 <hr className="my-2" />
                 <button
