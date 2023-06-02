@@ -13,7 +13,7 @@ const Payment = () => {
   const id = uuid.v4();
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { error } = useSelector((state) => state.newOrder);
-
+  
   useEffect(() => {
     if (error) {
       alert.error(error);

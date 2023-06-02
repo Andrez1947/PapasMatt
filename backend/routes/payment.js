@@ -8,12 +8,17 @@ const {
 
 const {isAuthenticatedUser} = require('../middlewares/auth');
 
-//Create payment => /api/v1/order/new
-router.route('/payment/process').post(isAuthenticatedUser, processPayment);
+// Create payment => /api/v1/order/new
+router.route('/payment/process').post(isAuthenticatedUser, (req, res, next) => {
+    // Agrega las backurls a la respuesta
+    const successUrl = '/payment/success';
+    const failureUrl = "'/payment/failure'";
+    const pendingUrl = "'/payment/pending'";
 
-//Send api by frontend
+    processPayment(req, res, next, successUrl, failureUrl, pendingUrl);
+});
+
+// Send api by frontend
 router.route('/mercadopagoapi').get(isAuthenticatedUser, sendMercadopagoApi);
-
-
 
 module.exports = router;

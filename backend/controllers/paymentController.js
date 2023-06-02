@@ -7,28 +7,31 @@ mercadopago.configure({
 });
 
 // Procesar pagos con Mercado Pago => /api/v1/payment/process
-exports.processPayment = catchAsyncErrors(async (req, res, next) => {
+exports.processPayment = catchAsyncErrors(async (req, res, next, successUrl, failureUrl, pendingUrl) => {
   const { amount } = req.body;
 
   const preference = {
+    back_urls: {
+      failure:'http://localhost:3000/api/v1/payment/success',
+      pending:'http://localhost:3000/api/v1/payment/success',
+      success: 'http://localhost:3000/api/v1/payment/success'
+    },
     items: [
       {
-        title: "Producto",
-        unit_price: parseInt(amount), // Usar el monto recibido desde el front-end
-        quantity: 1,
+        title: "Pedido Papas Matt",        
+        unit_price: parseInt(amount),
+        quantity: 1,        
       },
-    ],
+    ], 
+    notification_url: `http://localhost:3000/api/v1/payment/success/${123}`,       
     payment_methods: {
       excluded_payment_types: [
-        // Excluir métodos de pago que no deseas mostrar
-        {
-          id: "credit_card",
-        },
+        // Excluir métodos de pago que no deseas mostrar       
       ],
       installments: 12, // Configurar el número máximo de cuotas permitidas
     },
     payment_type_ids: ["credit_card", "ticket", "bank_transfer"], // Incluir opciones de pago adicionales
-    external_reference: "ID_DE_REFERENCIA_EXTERNA", // Puedes proporcionar una referencia externa personalizada para rastrear la transacción
+    external_reference: "ID_DE_REFERENCIA_EXTERNA", // Puedes proporcionar una referencia externa personalizada para rastrear la transacción    
   };
 
   const response = await mercadopago.preferences.create(preference);
@@ -38,7 +41,11 @@ exports.processPayment = catchAsyncErrors(async (req, res, next) => {
     success: true,
     payment_id: id,
     payment_url: init_point,
+    success_url: successUrl,
+    failure_url: failureUrl,
+    pending_url: pendingUrl,
   });
+    console.log(response)
 });
 
 // Send mercadopago API Key => /api/v1/mercadopagoapi
