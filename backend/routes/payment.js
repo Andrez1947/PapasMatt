@@ -23,20 +23,13 @@ router.route("/mercadopagoapi").get(isAuthenticatedUser, sendMercadopagoApi);
 
 router
   .route("/notificar")
-  .post(isAuthenticatedUser, (req, res, next) => {
+  .post( (req, res, next) => {
     console.log('notificar') 
     const {body, query} = req;
     console.log({body, query})
     res.sendStatus(200);    
   });
 
-  router
-  .route("/notificar")
-  .get( (req, res, next) => {
-    console.log('notificar') 
-    const {body, query} = req;
-    console.log({body, query})
-    res.sendStatus(200);    
-  });
+  
 
 module.exports = router;
