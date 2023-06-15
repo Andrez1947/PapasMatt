@@ -22,7 +22,7 @@
     "mercadopago": "^1.5.16",
     "mongoose": "^6.8.4",
     "nodemailer": "^6.9.0",
-    "validator": "^13.7.0"
+    "validator": "^13.9.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
