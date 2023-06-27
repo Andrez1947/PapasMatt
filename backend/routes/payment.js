@@ -12,8 +12,8 @@ const { isAuthenticatedUser } = require("../middlewares/auth");
 router.route("/payment/process").post(isAuthenticatedUser, (req, res, next) => {
   // Agrega las backurls a la respuesta
   const successUrl = "/payment/success";
-  const failureUrl = "'/payment/failure'";
-  const pendingUrl = "'/payment/pending'";
+  const failureUrl = "/payment/failure";
+  const pendingUrl = "/payment/pending";
 
   processPayment(req, res, next, successUrl, failureUrl, pendingUrl);
 });

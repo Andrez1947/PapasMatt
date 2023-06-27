@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://819b-181-58-39-6.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://e826-181-58-39-6.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -47,6 +47,7 @@ exports.processPayment = catchAsyncErrors(
       pending_url: pendingUrl,
     });
     console.log(response);
+    console.log(result.body);
   }
 );
 
