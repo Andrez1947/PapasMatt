@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://http://localhost:3000/api/v1/payment/failure",
-        pending: "http://localhost:3000/api/v1/payment/pending",
-        success: "https://http://localhost:3000/api/v1/payment/success",
+        failure: "https://e826-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://e826-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
+        success: "https://e826-181-58-39-6.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -46,8 +46,7 @@ exports.processPayment = catchAsyncErrors(
       failure_url: failureUrl,
       pending_url: pendingUrl,
     });
-    console.log(response);
-    console.log(result.body);
+    console.log(response);    
   }
 );
 
@@ -59,3 +58,13 @@ exports.sendMercadopagoApi = catchAsyncErrors(async (req, res, next) => {
     payment_url: init_point,
   });
 });
+
+// Recieve notification of mercadopago => /api/v1/notificar
+exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
+  console.log(req.query);
+
+  res.send('webhook');
+  });
+
+
+

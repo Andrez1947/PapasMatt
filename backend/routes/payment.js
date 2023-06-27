@@ -4,6 +4,7 @@ const router = express.Router();
 const {
   processPayment,
   sendMercadopagoApi,
+  recieveWebhook,
 } = require("../controllers/paymentController");
 
 const { isAuthenticatedUser } = require("../middlewares/auth");
@@ -18,16 +19,17 @@ router.route("/payment/process").post(isAuthenticatedUser, (req, res, next) => {
   processPayment(req, res, next, successUrl, failureUrl, pendingUrl);
 });
 
+router.route("/payment/success").get((req, res, next) => {
+  res.send('success')      
+});
+
 // Send api by frontend
 router.route("/mercadopagoapi").get(isAuthenticatedUser, sendMercadopagoApi);
 
 router
   .route("/notificar")
   .post( (req, res, next) => {
-    console.log('notificar') 
-    const {body, query} = req;
-    console.log({body, query})
-    res.sendStatus(200);    
+    recieveWebhook      
   });
 
   
