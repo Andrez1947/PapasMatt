@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://e826-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://e826-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
-        success: "https://e826-181-58-39-6.ngrok-free.app/api/v1/payment/success",
+        failure: "https://6719-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://6719-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
+        success: "https://6719-181-58-39-6.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://e826-181-58-39-6.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://6719-181-58-39-6.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -61,9 +61,10 @@ exports.sendMercadopagoApi = catchAsyncErrors(async (req, res, next) => {
 
 // Recieve notification of mercadopago => /api/v1/notificar
 exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
-  console.log(req.query);
-
-  res.send('webhook');
+  console.log('notificar');
+  const { body, query } = req;
+  console.log({body, query});
+  res.send();
   });
 
 

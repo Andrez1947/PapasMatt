@@ -29,7 +29,7 @@ router.route("/mercadopagoapi").get(isAuthenticatedUser, sendMercadopagoApi);
 router
   .route("/notificar")
   .post( (req, res, next) => {
-    recieveWebhook      
+    recieveWebhook(req, res, next);    
   });
 
   
