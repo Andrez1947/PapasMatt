@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://6719-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://6719-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
-        success: "https://6719-181-58-39-6.ngrok-free.app/api/v1/payment/success",
+        failure: "https://36f0-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://36f0-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
+        success: "https://36f0-181-58-39-6.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://6719-181-58-39-6.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://36f0-181-58-39-6.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -61,9 +61,40 @@ exports.sendMercadopagoApi = catchAsyncErrors(async (req, res, next) => {
 
 // Recieve notification of mercadopago => /api/v1/notificar
 exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
-  console.log('notificar');
-  const { body, query } = req;
-  console.log({body, query});
+  const { query } = req;
+  const topic = query.topic || query.type;
+  console.log({topic});
+  var body;
+  
+  switch(topic)  {
+    case 'payment':
+      const paymentId = query.id || query['data.id'];
+      console.log(topic, 'Obteniendo pago', paymentId);
+
+      var {body} = await mercadopago.merchant_orders.findById(payment.body.order.id);
+      break;
+    case 'merchant_order':
+      const orderId = query.id;
+      console.log(topic, 'Obteniendo Merchant Order', orderId);
+      var {body} = await mercadopago.merchant_orders.findById(orderId);  
+      break;
+  }
+
+  console.log(body.payments);
+
+  var paidAmount = 0;
+  body.payments.forEach(payment => {
+    if(payment.status === 'approved') {
+      paidAmount += payment.transaction_amount;
+    }
+  });
+    if (paidAmount >= body.total_amount) {
+      console.log('El pago se completó');
+    } else {
+      console.log('El pago NO fue exitoso');
+    }
+
+
   res.send();
   });
 
