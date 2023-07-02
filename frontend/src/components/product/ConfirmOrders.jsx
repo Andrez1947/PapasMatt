@@ -14,7 +14,7 @@ const ConfirmOrders = () => {
     (acc, item) => acc + item.precio * item.quantity,
     0
   );
-  const precioEnvio = precioItems > 125000 ? 0 : 3500;
+  const precioEnvio = precioItems > 125000 ? 0 : 1500;
 
   const precioTotal = (precioItems + precioEnvio).toFixed(0);
 
