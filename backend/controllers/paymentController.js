@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://6bd3-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://6bd3-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
-        success: "https://6bd3-181-58-39-6.ngrok-free.app/api/v1/payment/success",
+        failure: "https://d7eb-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://d7eb-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
+        success: "https://d7eb-181-58-39-6.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://6bd3-181-58-39-6.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://d7eb-181-58-39-6.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -63,40 +63,51 @@ exports.sendMercadopagoApi = catchAsyncErrors(async (req, res, next) => {
 exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
   const { query } = req;
   const topic = query.topic || query.type;
-  console.log({topic});
-  var body;
-  
-  switch(topic)  {
+  console.log({ topic });
+
+  let body;
+
+  switch (topic) {
     case 'payment':
       const paymentId = query.id || query['data.id'];
       console.log(topic, 'Obteniendo pago', paymentId);
 
-      var {body} = await mercadopago.merchant_orders.findById(payment.body.order.id);
+      const paymentResponse = await mercadopago.payment.findById(paymentId);
+      body = paymentResponse.body;
       break;
+
     case 'merchant_order':
       const orderId = query.id;
       console.log(topic, 'Obteniendo Merchant Order', orderId);
-      var {body} = await mercadopago.merchant_orders.findById(orderId);  
+
+      const orderResponse = await mercadopago.merchant_orders.findById(orderId);
+      body = orderResponse.body;
+      break;
+
+    default:
+      console.log('Notificación no reconocida');
       break;
   }
 
-  console.log(body.payments);
+  console.log(body);
 
   var paidAmount = 0;
-body.payments.forEach(payment => {
-  if(payment.status === 'approved') {
-    paidAmount += payment.transaction_amount_paid;
+  if (body.payments) {
+    body.payments.forEach(payment => {
+      if (payment.status === 'approved') {
+        paidAmount += payment.transaction_amount;
+      }
+    });
   }
-});
-    if (paidAmount >= body.amount) {
-      console.log('El pago se completó');
-    } else {
-      console.log('El pago NO fue exitoso');
-    }
 
+  console.log('Monto pagado:', paidAmount);
+  console.log('Monto total esperado:', body.total_amount);
+
+  if (paidAmount >= body.total_amount) {
+    console.log('El pago se completó');
+  } else {
+    console.log('El pago NO fue exitoso');
+  }
 
   res.send();
-  });
-
-
-
+});
