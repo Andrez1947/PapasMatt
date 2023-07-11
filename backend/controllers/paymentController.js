@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://d7eb-181-58-39-6.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://d7eb-181-58-39-6.ngrok-free.app/api/v1/payment/pending",
-        success: "https://d7eb-181-58-39-6.ngrok-free.app/api/v1/payment/success",
+        failure: "https://1329-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://1329-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
+        success: "https://1329-186-84-84-167.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://d7eb-181-58-39-6.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://1329-186-84-84-167.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -91,19 +91,11 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
 
   console.log(body);
 
-  var paidAmount = 0;
-  if (body.payments) {
-    body.payments.forEach(payment => {
-      if (payment.status === 'approved') {
-        paidAmount += payment.transaction_amount;
-      }
-    });
-  }
-
+  var paidAmount = body.transaction_details.total_paid_amount || 0;
   console.log('Monto pagado:', paidAmount);
-  console.log('Monto total esperado:', body.total_amount);
+  console.log('Monto total esperado:', body.transaction_amount);
 
-  if (paidAmount >= body.total_amount) {
+  if (paidAmount >= body.transaction_amount) {
     console.log('El pago se completó');
   } else {
     console.log('El pago NO fue exitoso');
