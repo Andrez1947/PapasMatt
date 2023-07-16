@@ -3,7 +3,7 @@ const mercadopago = require("mercadopago");
 
 mercadopago.configure({
   access_token:
-    "TEST-7701858746848762-052918-3b71568d296b39295a9fc860e3caf173-1386004902",
+    "APP_USR-4919554833544510-052817-977ff19fba662bbac76ecef96ec83453-827318745",
 });
 
 // Procesar pagos con Mercado Pago => /api/v1/payment/process
@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://1329-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://1329-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
-        success: "https://1329-186-84-84-167.ngrok-free.app/api/v1/payment/success",
+        failure: "https://e1dd-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://e1dd-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
+        success: "https://e1dd-186-84-84-167.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://1329-186-84-84-167.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://e1dd-186-84-84-167.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -66,6 +66,7 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
   console.log({ topic });
 
   let body;
+  let paymentStatus = null;
 
   switch (topic) {
     case 'payment':
@@ -74,6 +75,9 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
 
       const paymentResponse = await mercadopago.payment.findById(paymentId);
       body = paymentResponse.body;
+      
+      // Obtener el estado del pago
+      paymentStatus = body.status;
       break;
 
     case 'merchant_order':
@@ -91,14 +95,14 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
 
   console.log(body);
 
-  var paidAmount = body.transaction_details.total_paid_amount || 0;
-  console.log('Monto pagado:', paidAmount);
-  console.log('Monto total esperado:', body.transaction_amount);
-
-  if (paidAmount >= body.transaction_amount) {
-    console.log('El pago se completó');
+  if (paymentStatus === 'approved') {
+    console.log('El pago se aprobó');
+    // Realizar acciones correspondientes al pago aprobado
+  } else if (paymentStatus === 'rejected') {
+    console.log('El pago fue rechazado');
+    // Realizar acciones correspondientes al pago rechazado
   } else {
-    console.log('El pago NO fue exitoso');
+    console.log('El pago NO fue aprobado ni rechazado');
   }
 
   res.send();
