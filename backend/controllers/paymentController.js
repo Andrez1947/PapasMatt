@@ -13,9 +13,9 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://e1dd-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://e1dd-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
-        success: "https://e1dd-186-84-84-167.ngrok-free.app/api/v1/payment/success",
+        failure: "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
+        pending: "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
+        success: "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -24,7 +24,7 @@ exports.processPayment = catchAsyncErrors(
           quantity: 1,
         },
       ],
-      notification_url: `https://e1dd-186-84-84-167.ngrok-free.app/api/v1/notificar`,
+      notification_url: `https://39a0-186-84-84-167.ngrok-free.app/api/v1/notificar`,
       payment_methods: {
         excluded_payment_types: [
           // Excluir métodos de pago que no deseas mostrar
@@ -97,7 +97,28 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
 
   if (paymentStatus === 'approved') {
     console.log('El pago se aprobó');
-    // Realizar acciones correspondientes al pago aprobado
+    const order = new Order({
+      orderItems: [], // Rellenar con los artículos del pedido
+      shippingInfo: {}, // Rellenar con la información de envío
+      itemsPrice: 0, // Precio de los artículos
+      taxPrice: 0, // Precio de impuestos
+      shippingPrice: 0, // Precio de envío
+      totalPrice: 0, // Precio total
+      payment: {
+        paymentId: body.id, // Obtener el ID del pago de MercadoPago
+        status: body.status, // Obtener el estado del pago de MercadoPago
+        // Otros campos necesarios para la información del pago
+        // ...
+      },
+      paidAt: new Date(), // Fecha y hora de pago
+      user: req.user._id, // ID del usuario
+    });
+  
+    // Guardar la nueva orden en la base de datos
+    const createdOrder = await order.save();
+  
+    console.log('La orden se ha creado con éxito:', createdOrder);
+
   } else if (paymentStatus === 'rejected') {
     console.log('El pago fue rechazado');
     // Realizar acciones correspondientes al pago rechazado

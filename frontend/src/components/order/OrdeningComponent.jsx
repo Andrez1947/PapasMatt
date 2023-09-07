@@ -25,7 +25,6 @@ const OrdeningComponent = () => {
 
   return (
     <Fragment>           
-
             {loading ? <i class="fa fa-refresh fa-spin fa-3x fa-fw"></i> : (
                 <Fragment>
                     <div className="row d-flex justify-content-between">

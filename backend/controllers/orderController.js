@@ -7,36 +7,38 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 
 
 // Create a new order => /api/v1/order/new
-exports.newOrder = catchAsyncErrors ( async(req, res, next) => {
-    const {
-        orderItems,
-        shippingInfo,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-        paymentInfo
-    } = req.body;
+exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
+  const { orderItems, shippingInfo, itemsPrice, taxPrice, shippingPrice, totalPrice, payment } = req.body;
 
+  try {
     const order = await Order.create({
-        orderItems,
-        shippingInfo,
-        itemsPrice,
-        taxPrice,
-        shippingPrice,
-        totalPrice,
-        paymentInfo,
-        paidAt: Date.now(),
-        user: req.user._id
-    })
+      orderItems,
+      shippingInfo,
+      itemsPrice,
+      taxPrice,
+      shippingPrice,
+      totalPrice,
+      payment,
+      paidAt: new Date(),
+      user: req.user._id
+    });
 
+    console.log('¡Orden creada con éxito!', order);
+    // Aquí puedes realizar cualquier otra acción necesaria después de crear la orden
 
-    res.send(200).json({
-        success: true,
-        order
-    })
+    res.status(201).json({
+      success: true,
+      order
+    });
+  } catch (error) {
+    console.error('Error al crear la orden:', error);
+    // Aquí puedes manejar el error de alguna manera apropiada
+    next(error);
+  }
 });
+
+
 
 //Get single order => /api/v1/order/:id
 exports.getSimpleOrder = catchAsyncErrors(async (req, res, next) => {

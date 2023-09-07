@@ -20,7 +20,8 @@ import {
   UpdateProfile,
   UpdatePassword,
   ForgotPassword,
-  NewPassword
+  NewPassword,
+  ListOrders
 } from "./components";
 import { AnimatePresence } from "framer-motion";
 
@@ -67,6 +68,7 @@ const App = () => {
               <Route path="/password/forgot" element={<ForgotPassword />} />
               <Route path="/password/reset/:token" element={<NewPassword />} />
               <Route path="/order/:id" element={<OrdeningComponent />} />
+              <Route path="/orders/me" element={<ListOrders />} />
             </Routes>
           </main>
           <Footer />

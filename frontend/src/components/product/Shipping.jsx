@@ -27,16 +27,16 @@ const Shipping = () => {
 
     dispatch(
       saveShippingInfo({
-        email,
         address,
         phoneNumber,
+        email,
         billingType,
-        paymentMethod: selectedPaymentMethod,
-      })
-    );
+        paymentMethod: selectedPaymentMethod, // Agregar el método de pago aquí
+      }))    
 
     setPaymentSubmitted(true);
-    Navigate("/confirm");
+    Navigate('/confirm')
+    
   };
   return (
     <Fragment>

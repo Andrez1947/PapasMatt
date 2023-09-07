@@ -1,11 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
 import CheckoutStepsComponent from "./CheckoutStepsComponent";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
-const ConfirmOrders = () => {
-  const Navigate = useNavigate();
+const ConfirmOrders = () => { 
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
   const { user } = useSelector((state) => state.auth);
 
@@ -21,25 +20,55 @@ const ConfirmOrders = () => {
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const processToPayment = async () => {
-    const data = {
-      amount: precioTotal,
-    };
+    // Verifica si el método de pago es "efectivo"
+    if (shippingInfo.paymentMethod === "efectivo") {
+      // Crea el objeto de datos de la orden
+      const orderData = {
+        orderItems: cartItems.map((item) => ({
+          product: item.product,
+          nombre: item.nombre,
+          precio: item.precio,
+          imagen: item.imagen,
+          quantity: item.quantity,
+        })),
+        shippingInfo: {
+          email: user.email, // Usar el correo del usuario
+          phoneNumber: shippingInfo.phoneNumber,
+          address: shippingInfo.address,
+        },
+        // Otros campos como itemsPrice, taxPrice, shippingPrice, totalPrice, payment, etc.
+      };
 
-    sessionStorage.setItem("orderInfo", JSON.stringify(data));
+      try {
+        // Envia los datos de la orden al servidor
+        const response = await axios.post("/api/v1/order/new", orderData);
 
-    try {
-      const response = await axios.post("/api/v1/payment/process", {
-        amount: data.amount, // Enviar el monto al servidor
-      });
-      const { payment_url } = response.data;
-      setPaymentUrl(payment_url);
-
-      // Redireccionar al punto de inicio de Mercado Pago
-      if (payment_url) {
-        window.open(payment_url, "_blank");
+        // Maneja la respuesta del servidor, puedes redirigir al usuario a la página de confirmación de pedido aquí si es necesario
+      } catch (error) {
+        // Manejo de errores
       }
-    } catch (error) {
-      // Manejo de errores
+    } else {
+      // Si el método de pago no es "efectivo", puedes continuar con el proceso de pago en línea
+      const data = {
+        amount: precioTotal,
+      };
+
+      sessionStorage.setItem("orderInfo", JSON.stringify(data));
+
+      try {
+        const response = await axios.post("/api/v1/payment/process", {
+          amount: data.amount, // Enviar el monto al servidor
+        });
+        const { payment_url } = response.data;
+        setPaymentUrl(payment_url);
+
+        // Redireccionar al punto de inicio de Mercado Pago
+        if (payment_url) {
+          window.open(payment_url, "_blank");
+        }
+      } catch (error) {
+        // Manejo de errores
+      }
     }
   };
   return (
