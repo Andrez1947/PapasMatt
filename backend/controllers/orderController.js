@@ -9,7 +9,7 @@ const catchAsyncErrors = require('../middlewares/catchAsyncErrors');
 // Create a new order => /api/v1/order/new
 exports.newOrder = catchAsyncErrors(async (req, res, next) => {
 
-  const { orderItems, shippingInfo, itemsPrice, taxPrice, shippingPrice, totalPrice, payment } = req.body;
+  const { orderItems, shippingInfo, itemsPrice, taxPrice, shippingPrice, totalPrice, paymentMethod } = req.body;
 
   try {
     const order = await Order.create({
@@ -19,7 +19,11 @@ exports.newOrder = catchAsyncErrors(async (req, res, next) => {
       taxPrice,
       shippingPrice,
       totalPrice,
-      payment,
+      payment: {
+        paymentMethod,
+        paymentId: null,  // Set paymentId to null initially
+        status: "pendiente", // Set status to "pendiente" initially
+      },
       paidAt: new Date(),
       user: req.user._id
     });

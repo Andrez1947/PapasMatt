@@ -1,11 +1,14 @@
 import React, { Fragment, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch  } from "react-redux";
 import CheckoutStepsComponent from "./CheckoutStepsComponent";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const ConfirmOrders = () => { 
+
+  const dispatch = useDispatch();  
   const { cartItems, shippingInfo } = useSelector((state) => state.cart);
+  const Navigate = useNavigate;
   const { user } = useSelector((state) => state.auth);
 
   //calculemos los valores
@@ -17,6 +20,7 @@ const ConfirmOrders = () => {
 
   const precioTotal = (precioItems + precioEnvio).toFixed(0);
 
+  // eslint-disable-next-line no-unused-vars
   const [paymentUrl, setPaymentUrl] = useState("");
 
   const processToPayment = async () => {
@@ -32,18 +36,34 @@ const ConfirmOrders = () => {
           quantity: item.quantity,
         })),
         shippingInfo: {
-          email: user.email, // Usar el correo del usuario
+          email: user.email, 
           phoneNumber: shippingInfo.phoneNumber,
           address: shippingInfo.address,
+          billingType: shippingInfo.billingType
+        }, 
+        itemsPrice: precioItems,
+        taxPrice:0,
+        shippingPrice: precioEnvio,
+        totalPrice: precioTotal,
+        payment: {
+          paymentMethod: 'efectivo',
+          paymentId: null,  // Se establece paymentId como null inicialmente para "efectivo"
+          status: "pendiente", 
         },
-        // Otros campos como itemsPrice, taxPrice, shippingPrice, totalPrice, payment, etc.
+                        
       };
 
       try {
         // Envia los datos de la orden al servidor
         const response = await axios.post("/api/v1/order/new", orderData);
+        // Actualiza el estado de la orden a 'aprobado'
+      await axios.put(`/api/v1/order/${response.data._id}/updateStatus`, {
+        paymentId: response.data.payment.paymentId,
+        status: "aprobado"});
 
         // Maneja la respuesta del servidor, puedes redirigir al usuario a la página de confirmación de pedido aquí si es necesario
+        Navigate(`/order/${response.data._id}`)
+        // Despacha acciones para borrar la información del carrito y la información de envío        
       } catch (error) {
         // Manejo de errores
       }
@@ -51,6 +71,7 @@ const ConfirmOrders = () => {
       // Si el método de pago no es "efectivo", puedes continuar con el proceso de pago en línea
       const data = {
         amount: precioTotal,
+        paymentMethod: shippingInfo.paymentMethod
       };
 
       sessionStorage.setItem("orderInfo", JSON.stringify(data));

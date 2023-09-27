@@ -13,9 +13,12 @@ exports.processPayment = catchAsyncErrors(
 
     const preference = {
       back_urls: {
-        failure: "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
-        pending: "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
-        success: "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/success",
+        failure:
+          "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/failure",
+        pending:
+          "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/pending",
+        success:
+          "https://39a0-186-84-84-167.ngrok-free.app/api/v1/payment/success",
       },
       items: [
         {
@@ -46,7 +49,8 @@ exports.processPayment = catchAsyncErrors(
       failure_url: failureUrl,
       pending_url: pendingUrl,
     });
-    console.log(response);    
+
+    console.log(response);
   }
 );
 
@@ -69,34 +73,34 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
   let paymentStatus = null;
 
   switch (topic) {
-    case 'payment':
-      const paymentId = query.id || query['data.id'];
-      console.log(topic, 'Obteniendo pago', paymentId);
+    case "payment":
+      const paymentId = query.id || query["data.id"];
+      console.log(topic, "Obteniendo pago", paymentId);
 
       const paymentResponse = await mercadopago.payment.findById(paymentId);
       body = paymentResponse.body;
-      
+
       // Obtener el estado del pago
       paymentStatus = body.status;
       break;
 
-    case 'merchant_order':
+    case "merchant_order":
       const orderId = query.id;
-      console.log(topic, 'Obteniendo Merchant Order', orderId);
+      console.log(topic, "Obteniendo Merchant Order", orderId);
 
       const orderResponse = await mercadopago.merchant_orders.findById(orderId);
       body = orderResponse.body;
       break;
 
     default:
-      console.log('Notificación no reconocida');
+      console.log("Notificación no reconocida");
       break;
   }
 
   console.log(body);
 
-  if (paymentStatus === 'approved') {
-    console.log('El pago se aprobó');
+  if (paymentStatus === "approved") {
+    console.log("El pago se aprobó");
     const order = new Order({
       orderItems: [], // Rellenar con los artículos del pedido
       shippingInfo: {}, // Rellenar con la información de envío
@@ -113,17 +117,16 @@ exports.recieveWebhook = catchAsyncErrors(async (req, res, next) => {
       paidAt: new Date(), // Fecha y hora de pago
       user: req.user._id, // ID del usuario
     });
-  
+
     // Guardar la nueva orden en la base de datos
     const createdOrder = await order.save();
-  
-    console.log('La orden se ha creado con éxito:', createdOrder);
 
-  } else if (paymentStatus === 'rejected') {
-    console.log('El pago fue rechazado');
+    console.log("La orden se ha creado con éxito:", createdOrder);
+  } else if (paymentStatus === "rejected") {
+    console.log("El pago fue rechazado");
     // Realizar acciones correspondientes al pago rechazado
   } else {
-    console.log('El pago NO fue aprobado ni rechazado');
+    console.log("El pago NO fue aprobado ni rechazado");
   }
 
   res.send();

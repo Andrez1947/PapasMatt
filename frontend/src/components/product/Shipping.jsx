@@ -31,7 +31,7 @@ const Shipping = () => {
         phoneNumber,
         email,
         billingType,
-        paymentMethod: selectedPaymentMethod, // Agregar el método de pago aquí
+        paymentMethod: selectedPaymentMethod, 
       }))    
 
     setPaymentSubmitted(true);
